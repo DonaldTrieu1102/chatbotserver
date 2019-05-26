@@ -1,0 +1,21 @@
+{
+    "server": {
+        "host": "0.0.0.0", 
+        "port": 3000
+    },
+    "mysql": {
+        "host":"localhost",
+        "port":"3306",
+        "database":"athena_nails",
+        "user":"root",
+        "password":"root"
+    },
+    "salt":10,
+    "secret_key":"secret_key",
+    "facebook" : {
+       "APP_SECRET" : "f7775684d7ef1c2c9c1d59208b2d5760",
+       "VALIDATION_TOKEN" : "donaldtrieu1102",
+       "PAGE_ACCESS_TOKEN" : "EAAgNFI2d5ZCMBALIHRL9qCX7dKoeERaPzBK8fkOcFY0wpAJJrxcyxPIgPHk13yWX5z0NNZAphbsRvndaw4EZBt8nUdhQQqXt7TFG1IIK9F7JyZA7yTtsu99AS6ZBnSWhgs50kKF4o4hj2uE0sU2mV6h2sxJU3zopIXdCK0wKVugZDZD"
+
+    }
+}
