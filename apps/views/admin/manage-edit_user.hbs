@@ -1,0 +1,98 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<main class="main-content">
+    <div id="mainContent">
+        <div class="container">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="table-header text-center">Manage User</h1>
+                </div>
+                <div class="card-body text-center">
+                    <form method="POST">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="username"><b>Username</b></label>
+                                <input type="text" class="form-control" name="username" id="username"
+                                    placeholder="Username" value="{{user.username}}" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="birthday"><b>Password</b></label>
+                                <input value="{{user.password}}" type="text" class="form-control" id="password" name="password"
+                                    placeholder="Password" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="email"><b>Email</b></label>
+                                <input value="{{user.email}}" type="email" class="form-control" name="email" id="email" placeholder="Email" required>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="birthday"><b>Birthday</b></label>
+                                <input value="{{user.birthday}}" type="text" class="form-control" id="birthday" name="birthday" placeholder="01/01/1999" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="role_id"><b>Type account</b></label>
+                                <select onchange="OnRoleUserChange()" class="form-control" id="role_id" name="role_id"
+                                    required>
+                                    <option value="">None</option>
+                                    {{#each roles}}
+                                    <option {{#if active}} selected {{/if}} value="{{id}}">{{name}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="role_id"><b>Pseudonym</b></label>
+                                <input value="{{user.pseudonym}}" type="text" class="form-control" id="pseudonym" name="pseudonym" placeholder="ST MTP, Sky, ..." required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            {{#if user.expiration}}
+                            <div class="form-group col-md-6" id="expFrm">
+                                <label for="expirydate"><b>Expiry date</b></label>
+                                <input value="{{moment user.expiry_date format="DD/MM/YYYY"}}" type="text" class="form-control" id="expiry_date" placeholder="01/01/1999">
+                            </div>
+                            <script>
+                                $(function () {
+                                    $("#expiry_date").datepicker();
+                                });
+                                $(function () {
+                                    $("#birthday").datepicker();
+                                });
+                            </script>
+                            {{/if}}
+                            <div class="form-group col-md-6" id="catFrm" style="display: none;">
+                                <label for="category_id"><b>Category</b></label>
+                                <select id="category_id" name="category_id" class="form-control" required>
+                                    <option value="0">None</option>
+                                    {{#each categories}}
+                                        <option {{#if active}} selected {{/if}} value="{{id}}">{{name}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary col-md-8 text-center">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    function OnRoleUserChange() {
+        switch (parseInt($('#role_id').val())) {
+            case 2:
+                $('#expFrm').css('display', 'initial');
+                $('#catFrm').css('display', 'none');
+                break;
+            case 4:
+                $('#expFrm').css('display', 'none');
+                $('#catFrm').css('display', 'initial');
+                break;
+            default:
+                $('#expFrm').css('display', 'none');
+                $('#catFrm').css('display', 'none');
+                break;
+        }
+    } 
+</script>

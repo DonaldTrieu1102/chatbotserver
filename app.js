@@ -4,14 +4,16 @@ var bodyParser = require("body-parser");
 var session = require('express-session');
 var passport = require('passport');
 var morgan = require('morgan');
-var app = express();
 var flash = require("connect-flash");
 var index = require(__dirname + "/apps/routers")
 var exphbs = require('express-handlebars');
 
+var app = express();
+
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
 app.use(session({
   secret: config.get('secret_key'),
   resave: true,
@@ -21,6 +23,7 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   res.locals.success = req.flash('success');
@@ -28,11 +31,8 @@ app.use((req, res, next) => {
   next();
 });
 
-
 //static folder
-app.use(express.static(__dirname + "/publics"));
-
-//set up engine 
+app.use(express.static(__dirname + "/public"));
 
 //set up engine 
 app.set("views", __dirname + "/apps/views")
