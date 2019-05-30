@@ -22,10 +22,10 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `baidang`;
 CREATE TABLE `baidang`  (
-  `MaBaiDang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `MaBaiDang` bigint(255) AUTO_INCREMENT,
   `TieuDe` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `NoiDung` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `DoiTuongSP` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `DoiTuongSP` bigint(255) NULL DEFAULT NULL,
   `DoiTuongBaiViet` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `NgayTao` datetime(6) NULL DEFAULT NULL,
   `NgayCapNhat` datetime(6) NULL DEFAULT NULL,
@@ -39,11 +39,11 @@ CREATE TABLE `baidang`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `baiquangcao`;
 CREATE TABLE `baiquangcao`  (
-  `MaQC` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `MaBaiDang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `MaQC` bigint(255) AUTO_INCREMENT,
+  `MaBaiDang` bigint(255) NULL DEFAULT NULL,
   `NgayBatDau` datetime(6) NULL DEFAULT NULL,
   `NgayKetThuc` datetime(6) NULL DEFAULT NULL,
-  `CtyQuangCao` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `CtyQuangCao` bigint(255) NULL DEFAULT NULL,
   `ThoiGianTao` datetime(6) NULL DEFAULT NULL,
   `ChiPhi` double(255, 0) NULL DEFAULT NULL,
   PRIMARY KEY (`MaQC`) USING BTREE,
@@ -58,8 +58,8 @@ CREATE TABLE `baiquangcao`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `banbe`;
 CREATE TABLE `banbe`  (
-  `MaBanBe` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `MaFanpageKB` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `MaBanBe` bigint(255) AUTO_INCREMENT,
+  `MaFanpageKB` bigint(255) NULL DEFAULT NULL,
   `Ten` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DiaChiProfile` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`MaBanBe`) USING BTREE,
@@ -72,7 +72,7 @@ CREATE TABLE `banbe`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `chitietbaidang`;
 CREATE TABLE `chitietbaidang`  (
-  `MaBaiDang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `MaBaiDang` bigint(255) AUTO_INCREMENT,
   `LoaiSPQuangCao` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `LuotThich` bigint(255) NULL DEFAULT NULL,
   `LuotBinhLuan` bigint(255) NULL DEFAULT NULL,
@@ -86,9 +86,9 @@ CREATE TABLE `chitietbaidang`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `chitiethoadon`;
 CREATE TABLE `chitiethoadon`  (
-  `MaHoaDon` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `MaSanPham` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `MaGiamGia` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `MaHoaDon` bigint(255) AUTO_INCREMENT,
+  `MaSanPham` bigint(255) NULL DEFAULT NULL,
+  `MaGiamGia` bigint(255) NULL DEFAULT NULL,
   `SoLuongSP` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`MaHoaDon`) USING BTREE,
   INDEX `MaSanPham`(`MaSanPham`) USING BTREE,
@@ -101,8 +101,8 @@ CREATE TABLE `chitiethoadon`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `chitietkhohang`;
 CREATE TABLE `chitietkhohang`  (
-  `manguonhang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `makhohang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `manguonhang` bigint(255) NOT NULL AUTO_INCREMENT,
+  `makhohang` bigint(255) NOT NULL,
   `ngaytaokho` datetime(6) NULL DEFAULT NULL,
   `ngaycapnhat` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`manguonhang`, `makhohang`) USING BTREE,
@@ -116,7 +116,7 @@ CREATE TABLE `chitietkhohang`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `chitietsanpham`;
 CREATE TABLE `chitietsanpham`  (
-  `MaSanPham` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `MaSanPham` bigint(255)NOT NULL AUTO_INCREMENT,
   `TongSoLuong` bigint(255) NULL DEFAULT NULL,
   `TongTonKho` bigint(255) NULL DEFAULT NULL,
   `SoLuongCoTheBan` bigint(255) NULL DEFAULT NULL,
@@ -130,7 +130,7 @@ CREATE TABLE `chitietsanpham`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `ctyquangcao`;
 CREATE TABLE `ctyquangcao`  (
-  `MaCty` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `MaCty` bigint(255)  NOT NULL AUTO_INCREMENT,
   `Ten` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DiaChiURL` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DiaChiThucTe` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -143,7 +143,7 @@ CREATE TABLE `ctyquangcao`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `danhmucsp`;
 CREATE TABLE `danhmucsp`  (
-  `MaDanhMuc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `MaDanhMuc` bigint(255) AUTO_INCREMENT,
   `TenDanhMuc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `NgayTao` datetime(6) NULL DEFAULT NULL,
   `NgayCapNhat` datetime(6) NULL DEFAULT NULL,
@@ -155,7 +155,7 @@ CREATE TABLE `danhmucsp`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `donvivanchuyen`;
 CREATE TABLE `donvivanchuyen`  (
-  `MaDV` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `MaDV` bigint(255) NOT NULL AUTO_INCREMENT,
   `Ten` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DiaChiURL` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DiaChiThucTe` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -168,8 +168,8 @@ CREATE TABLE `donvivanchuyen`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `facebookfanpage`;
 CREATE TABLE `facebookfanpage`  (
-  `MaFBFanpage` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `MaFanpage` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `MaFBFanpage` bigint(255) NOT NULL AUTO_INCREMENT,
+  `MaFanpage` bigint(255)  NULL DEFAULT NULL,
   `SDTFanpage` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `NgayTao` datetime(6) NULL DEFAULT NULL,
   `NgayCapNhat` datetime(6) NULL DEFAULT NULL,
@@ -183,7 +183,7 @@ CREATE TABLE `facebookfanpage`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `fanpagecuahang`;
 CREATE TABLE `fanpagecuahang`  (
-  `MaFanPage` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `MaFanPage` bigint(255) AUTO_INCREMENT,
   `Ten` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DiaChiURL` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DiaChiThucTe` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -196,14 +196,14 @@ CREATE TABLE `fanpagecuahang`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `hoadon`;
 CREATE TABLE `hoadon`  (
-  `MaHoaDon` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `MaKhachHang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `MaHoaDon` bigint(255) NOT NULL AUTO_INCREMENT,
+  `MaKhachHang` bigint(255) NULL DEFAULT NULL,
   `DiaChiKhachHang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `SDTKhachHang` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `MaFanpage` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `MaFanpage` bigint(255) NULL DEFAULT NULL,
   `TongGia` bigint(255) NULL DEFAULT NULL,
   `TrangThai` tinyint(5) NULL DEFAULT NULL,
-  `MaGiamGia` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `MaGiamGia` bigint(255) NULL DEFAULT NULL,
   `ThoiGianTao` datetime(6) NULL DEFAULT NULL,
   `ThoiGianCapNhat` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`MaHoaDon`) USING BTREE,
@@ -220,14 +220,14 @@ CREATE TABLE `hoadon`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `hoadonvanchuyen`;
 CREATE TABLE `hoadonvanchuyen`  (
-  `MaHD` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `MaHD` bigint(255) NOT NULL AUTO_INCREMENT,
   `TrongLuong` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `GiaCuoc` bigint(255) NULL DEFAULT NULL,
   `DiaChiGiaoHang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `TrangThai` tinyint(5) NULL DEFAULT NULL,
-  `DonViVanChuyen` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `DonViVanChuyen` bigint(255) NULL DEFAULT NULL,
   `NgayTao` datetime(6) NULL DEFAULT NULL,
-  `MaKhoHang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `MaKhoHang` bigint(255) NULL DEFAULT NULL,
   `NgayCapNhat` datetime(6) NULL DEFAULT NULL,
   `NgayGiaoXong` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`MaHD`) USING BTREE,
@@ -242,7 +242,7 @@ CREATE TABLE `hoadonvanchuyen`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `khohang`;
 CREATE TABLE `khohang`  (
-  `MaKhoHang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `MaKhoHang` bigint(255) NOT NULL AUTO_INCREMENT,
   `Ten` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DiaChi` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`MaKhoHang`) USING BTREE
@@ -253,7 +253,7 @@ CREATE TABLE `khohang`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `magiamgia`;
 CREATE TABLE `magiamgia`  (
-  `MaGiamGia` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `MaGiamGia` bigint(255) NOT NULL AUTO_INCREMENT,
   `TieuDe` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `MieuTa` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `GiaGiam` double(255, 0) NULL DEFAULT NULL,
@@ -270,13 +270,13 @@ CREATE TABLE `magiamgia`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `nguoidung`;
 CREATE TABLE `nguoidung`  (
-  `MaTaiKhoan` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `MaTaiKhoan` bigint(255) NOT NULL AUTO_INCREMENT,
   `Ten` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DiaChi` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `SoDienThoai` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `LanCuoiDangNhap` datetime(6) NULL DEFAULT NULL,
-  `MaPhanQuyen` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `TheNganHang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `MaPhanQuyen` bigint(255) NULL DEFAULT NULL,
+  `TheNganHang` bigint(255) NULL DEFAULT NULL,
   `NgayTao` datetime(6) NULL DEFAULT NULL,
   `NgayCapNhat` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`MaTaiKhoan`) USING BTREE,
@@ -291,7 +291,7 @@ CREATE TABLE `nguoidung`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `nguonhang`;
 CREATE TABLE `nguonhang`  (
-  `MaNguonHang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `MaNguonHang` bigint(255)NOT NULL AUTO_INCREMENT,
   `Ten` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `URLWebsite` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DiaChiThucTe` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -307,7 +307,7 @@ CREATE TABLE `nguonhang`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `phanquyennguoidung`;
 CREATE TABLE `phanquyennguoidung`  (
-  `MaPhanQuyenNguoiDung` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `MaPhanQuyenNguoiDung` bigint(255) AUTO_INCREMENT,
   `Ten` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `NgayTao` datetime(6) NULL DEFAULT NULL,
   `NgayCapNhat` datetime(6) NULL DEFAULT NULL,
@@ -320,9 +320,9 @@ CREATE TABLE `phanquyennguoidung`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `sanpham`;
 CREATE TABLE `sanpham`  (
-  `MaSanPham` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `MaKhoHang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `MaDanhMuc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `MaSanPham` bigint(255) AUTO_INCREMENT,
+  `MaKhoHang` bigint(255) NULL DEFAULT NULL,
+  `MaDanhMuc` bigint(255) NULL DEFAULT NULL,
   `Ten` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `Gia` bigint(255) NULL DEFAULT NULL,
   `TrangThai` tinyint(4) NULL DEFAULT NULL,
@@ -340,7 +340,7 @@ CREATE TABLE `sanpham`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `sanphamcungcap`;
 CREATE TABLE `sanphamcungcap`  (
-  `MaSanPham` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `MaSanPham` bigint(255) AUTO_INCREMENT,
   `SLSanPhamCungCapToiThieu` bigint(255) NULL DEFAULT NULL,
   `Gia` bigint(255) NULL DEFAULT NULL,
   `DonViSanPham` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -353,8 +353,8 @@ CREATE TABLE `sanphamcungcap`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `sendofanpage`;
 CREATE TABLE `sendofanpage`  (
-  `MaSDFB` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `MaFB` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `MaSDFB` bigint(255)  NOT NULL AUTO_INCREMENT,
+  `MaFB` bigint(255)NULL DEFAULT NULL,
   `SDTFanpage` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `NgayTao` datetime(6) NULL DEFAULT NULL,
   `NgayCapNhat` datetime(6) NULL DEFAULT NULL,
@@ -368,8 +368,8 @@ CREATE TABLE `sendofanpage`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `shoppefanpage`;
 CREATE TABLE `shoppefanpage`  (
-  `MaSPFB` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `MaFB` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `MaSPFB` bigint(255) NOT NULL AUTO_INCREMENT,
+  `MaFB` bigint(255)  NULL DEFAULT NULL,
   `SDT` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `NgayTao` datetime(6) NULL DEFAULT NULL,
   `NgayCapNhat` datetime(6) NULL DEFAULT NULL,
@@ -383,8 +383,8 @@ CREATE TABLE `shoppefanpage`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `spdacungcap`;
 CREATE TABLE `spdacungcap`  (
-  `MaSanPham` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `MaNhaCungCap` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `MaSanPham` bigint(255) NOT NULL AUTO_INCREMENT,
+  `MaNhaCungCap` bigint(255) NOT NULL,
   `NgayCungCap` date NULL DEFAULT NULL,
   PRIMARY KEY (`MaSanPham`, `MaNhaCungCap`) USING BTREE,
   INDEX `MaNhaCungCap`(`MaNhaCungCap`) USING BTREE,
@@ -397,9 +397,9 @@ CREATE TABLE `spdacungcap`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `thenganhang`;
 CREATE TABLE `thenganhang`  (
-  `MaThe` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `MaThe` bigint(255) NOT NULL AUTO_INCREMENT,
   `IDThe` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `MaNganHang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `MaNganHang` bigint(255) NULL DEFAULT NULL,
   `TenNganHang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`MaThe`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
@@ -409,8 +409,8 @@ CREATE TABLE `thenganhang`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `zalofanpage`;
 CREATE TABLE `zalofanpage`  (
-  `ZaloFanPage` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `MaFanpage` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ZaloFanPage` bigint(255) NOT NULL AUTO_INCREMENT,
+  `MaFanpage` bigint(255) NULL DEFAULT NULL,
   `DiaChiURL` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `SDTFanpage` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `NgayTao` datetime(6) NULL DEFAULT NULL,
