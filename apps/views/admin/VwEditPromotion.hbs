@@ -1,0 +1,57 @@
+<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<main class="main-content">
+    <div id="mainContent">
+        <div class="container mt-60">
+            <div class="masonry-item col-md-12">
+                <div class="card shadow mb-4">
+                    <div class="text-center card-header py-3 text-center">
+                        <h3 class="" style="font-weight: bold; color: #029a00"><a href="../manage-post"></a>UPDATE
+                            PROMOTION
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="formAddOrder" method="POST">
+                            <div class="mt-30">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="tenkhachhang">
+                                            <b>Tiêu đề</b>
+                                        </label>
+                                        <input value="{{entity.TieuDe}}" type="text" class="form-control" name="TieuDe"
+                                            id="tenkhachhang" autofocus required>
+                                        <label for="sodienthoai">
+                                            <b>MieuTa</b>
+                                        </label>
+                                        <input type="text" value="{{entity.MieuTa}}" class="form-control" name="MieuTa"
+                                            id="sodienthoai" required>
+                                        <label for="sodienthoai">
+                                            <b>Địa chỉ</b>
+                                        </label>
+                                        <input type="text" value="{{entity.GiaGiam}}" class="form-control"
+                                            name="GiaGiam" id="address" required>
+                                        <label for="reduce" class="col-form-label">Hạn sử dụng</label>
+                                        <input value="{{moment entity.HanSuDung format="MM/DD/YYYY"}}" type="text" class="form-control" name="HanSuDung" id="dateExpire"
+                                            required></input>
+                                        <label for="reduce" class="col-form-label">Ngày áp dụng</label>
+                                        <input value="{{moment entity.NgayApDung format="MM/DD/YYYY"}}" type="text" class="form-control" name="NgayApDung" id="dateApply"
+                                            required></input>
+                                        <script>
+                                            $(function () {
+                                                $("#dateExpire").datepicker();
+                                                $("#dateApply").datepicker();
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success mr-2 ml-2 mb-3">
+                                Update promotion</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

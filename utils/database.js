@@ -6,7 +6,7 @@ var createConnection = () => {
         host: 'localhost',
         port: '3306',
         user: 'root',
-        password: 'root',
+        password: '123123',
         database: 'manage-store'
     });
 }
@@ -61,7 +61,7 @@ module.exports = {
         return new Promise((resolve, reject) => {
             var id = entity[idField];
             delete entity[idField];
-
+            console.log(id);
             var sql = `update ${tableName} set ? where ${idField} = ?`;
             var connection = createConnection();
             connection.connect();

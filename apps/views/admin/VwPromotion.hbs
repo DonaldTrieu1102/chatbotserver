@@ -1,4 +1,6 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/vi.js">
+<link href="https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <main class="main-content bgc-grey-100">
     <div id="mainContent">
         <div class="container-fluid">
@@ -20,7 +22,7 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="/admin/manage-category/add" method="POST">
+                                    <form action="/admin/promotions/add" method="POST">
                                         <label for="recipient-name" class="col-form-label">Tiêu đề</label>
                                         <input type="text" name="TieuDe" class="form-control" id="recipient-name"
                                             required>
@@ -29,16 +31,18 @@
                                         <label for="reduce" class="col-form-label">Giá giảm</label>
                                         <input type="text" class="form-control" name="GiaGiam" id="reduce" required>
                                         <label for="reduce" class="col-form-label">Hạn sử dụng</label>
-                                        <textarea type="text" class="form-control" name="HanSuDung" id="dateExpire" required></textarea>
+                                        <input type="text" class="form-control" name="HanSuDung" id="dateExpire"
+                                            required></input>
                                         <label for="reduce" class="col-form-label">Ngày áp dụng</label>
-                                        <textarea type="text" class="form-control" name="NgayApDung" id="dateApply" required></textarea>
+                                        <input type="text" class="form-control" name="NgayApDung" id="dateApply"
+                                            required></input>
                                         <div class="modal-footer mt-2">
                                             <button type="button" class="btn btn-secondary"
                                                 data-dismiss="modal">Close</button>
                                             <button type="submit" class="btn btn-success">Create promotion</button>
                                         </div>
                                     </form>
-                                      <script>
+                                    <script>
                                         $(function () {
                                             $("#dateExpire").datepicker();
                                             $("#dateApply").datepicker();
@@ -84,10 +88,6 @@
                                     <td>{{moment HanSuDung format="DD/MM/YYYY hh:mm:ss"}}</td>
                                     <td>{{moment NgayApDung format="DD/MM/YYYY hh:mm:ss"}}</td>
                                     <td class="text-center">
-                                        <button onclick="ChangeToDetail({{MaGiamGia}})" type="button"
-                                            class="btn btn-cat-control" id="btnCatEdit">
-                                            <i class="fas fa-info-circle"></i>
-                                        </button>
                                         <button onclick="ChangeToEdit({{MaGiamGia}})" type="button"
                                             class="btn btn-cat-control" id="btnCatEdit">
                                             <i class="fas fa-pen"></i>
@@ -118,9 +118,5 @@
 
     function ChangeToEdit(id) {
         window.location.replace("/admin/promotions/edit?id=" + id);
-    }
-
-    function ChangeToDetail(id) {
-        window.location.replace("/admin/promotions/detail?id=" + id);
     }
 </script>
