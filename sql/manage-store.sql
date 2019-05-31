@@ -11,7 +11,7 @@
  Target Server Version : 100314
  File Encoding         : 65001
 
- Date: 27/05/2019 22:54:14
+ Date: 31/05/2019 17:06:30
 */
 
 SET NAMES utf8mb4;
@@ -22,7 +22,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `baidang`;
 CREATE TABLE `baidang`  (
-  `MaBaiDang` bigint(255) AUTO_INCREMENT,
+  `MaBaiDang` bigint(255) NOT NULL AUTO_INCREMENT,
   `TieuDe` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `NoiDung` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `DoiTuongSP` bigint(255) NULL DEFAULT NULL,
@@ -32,14 +32,14 @@ CREATE TABLE `baidang`  (
   PRIMARY KEY (`MaBaiDang`) USING BTREE,
   INDEX `DoiTuongSP`(`DoiTuongSP`) USING BTREE,
   CONSTRAINT `baidang_ibfk_1` FOREIGN KEY (`DoiTuongSP`) REFERENCES `danhmucsp` (`MaDanhMuc`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for baiquangcao
 -- ----------------------------
 DROP TABLE IF EXISTS `baiquangcao`;
 CREATE TABLE `baiquangcao`  (
-  `MaQC` bigint(255) AUTO_INCREMENT,
+  `MaQC` bigint(255) NOT NULL AUTO_INCREMENT,
   `MaBaiDang` bigint(255) NULL DEFAULT NULL,
   `NgayBatDau` datetime(6) NULL DEFAULT NULL,
   `NgayKetThuc` datetime(6) NULL DEFAULT NULL,
@@ -51,50 +51,60 @@ CREATE TABLE `baiquangcao`  (
   INDEX `CtyQuangCao`(`CtyQuangCao`) USING BTREE,
   CONSTRAINT `baiquangcao_ibfk_1` FOREIGN KEY (`MaBaiDang`) REFERENCES `baidang` (`MaBaiDang`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `baiquangcao_ibfk_2` FOREIGN KEY (`CtyQuangCao`) REFERENCES `ctyquangcao` (`MaCty`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for banbe
 -- ----------------------------
 DROP TABLE IF EXISTS `banbe`;
 CREATE TABLE `banbe`  (
-  `MaBanBe` bigint(255) AUTO_INCREMENT,
+  `MaBanBe` bigint(255) NOT NULL AUTO_INCREMENT,
   `MaFanpageKB` bigint(255) NULL DEFAULT NULL,
   `Ten` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DiaChiProfile` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`MaBanBe`) USING BTREE,
   INDEX `MaFanpageKB`(`MaFanpageKB`) USING BTREE,
   CONSTRAINT `banbe_ibfk_1` FOREIGN KEY (`MaFanpageKB`) REFERENCES `fanpagecuahang` (`MaFanPage`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for chitietbaidang
 -- ----------------------------
 DROP TABLE IF EXISTS `chitietbaidang`;
 CREATE TABLE `chitietbaidang`  (
-  `MaBaiDang` bigint(255) AUTO_INCREMENT,
+  `MaBaiDang` bigint(255) NOT NULL AUTO_INCREMENT,
   `LoaiSPQuangCao` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `LuotThich` bigint(255) NULL DEFAULT NULL,
   `LuotBinhLuan` bigint(255) NULL DEFAULT NULL,
   `LuotShare` bigint(255) NULL DEFAULT NULL,
   PRIMARY KEY (`MaBaiDang`) USING BTREE,
   CONSTRAINT `chitietbaidang_ibfk_1` FOREIGN KEY (`MaBaiDang`) REFERENCES `baidang` (`MaBaiDang`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for chitiethoadon
 -- ----------------------------
 DROP TABLE IF EXISTS `chitiethoadon`;
 CREATE TABLE `chitiethoadon`  (
-  `MaHoaDon` bigint(255) AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `MaHoaDon` bigint(255) NOT NULL,
   `MaSanPham` bigint(255) NULL DEFAULT NULL,
   `MaGiamGia` bigint(255) NULL DEFAULT NULL,
   `SoLuongSP` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`MaHoaDon`) USING BTREE,
+  PRIMARY KEY (`id`) USING BTREE,
   INDEX `MaSanPham`(`MaSanPham`) USING BTREE,
+  INDEX `MaHoaDon`(`MaHoaDon`) USING BTREE,
   CONSTRAINT `chitiethoadon_ibfk_1` FOREIGN KEY (`MaSanPham`) REFERENCES `sanpham` (`MaSanPham`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `chitiethoadon_ibfk_2` FOREIGN KEY (`MaHoaDon`) REFERENCES `hoadon` (`MaHoaDon`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of chitiethoadon
+-- ----------------------------
+INSERT INTO `chitiethoadon` VALUES (1, 5, 1, NULL, '1');
+INSERT INTO `chitiethoadon` VALUES (2, 4, 1, NULL, '1');
+INSERT INTO `chitiethoadon` VALUES (3, 3, 1, NULL, '1');
+INSERT INTO `chitiethoadon` VALUES (4, 11, 1, NULL, '1');
 
 -- ----------------------------
 -- Table structure for chitietkhohang
@@ -109,46 +119,53 @@ CREATE TABLE `chitietkhohang`  (
   INDEX `makhohang`(`makhohang`) USING BTREE,
   CONSTRAINT `chitietkhohang_ibfk_1` FOREIGN KEY (`manguonhang`) REFERENCES `nguonhang` (`MaNguonHang`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `chitietkhohang_ibfk_2` FOREIGN KEY (`makhohang`) REFERENCES `khohang` (`MaKhoHang`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for chitietsanpham
 -- ----------------------------
 DROP TABLE IF EXISTS `chitietsanpham`;
 CREATE TABLE `chitietsanpham`  (
-  `MaSanPham` bigint(255)NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `MaSanPham` bigint(255) NULL DEFAULT NULL,
   `TongSoLuong` bigint(255) NULL DEFAULT NULL,
   `TongTonKho` bigint(255) NULL DEFAULT NULL,
   `SoLuongCoTheBan` bigint(255) NULL DEFAULT NULL,
   `SoMauMa` int(255) NULL DEFAULT NULL,
-  PRIMARY KEY (`MaSanPham`) USING BTREE,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `MaSanPham`(`MaSanPham`) USING BTREE,
   CONSTRAINT `chitietsanpham_ibfk_1` FOREIGN KEY (`MaSanPham`) REFERENCES `sanpham` (`MaSanPham`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for ctyquangcao
 -- ----------------------------
 DROP TABLE IF EXISTS `ctyquangcao`;
 CREATE TABLE `ctyquangcao`  (
-  `MaCty` bigint(255)  NOT NULL AUTO_INCREMENT,
+  `MaCty` bigint(255) NOT NULL AUTO_INCREMENT,
   `Ten` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DiaChiURL` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DiaChiThucTe` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `SDTChamSocKhachHang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`MaCty`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for danhmucsp
 -- ----------------------------
 DROP TABLE IF EXISTS `danhmucsp`;
 CREATE TABLE `danhmucsp`  (
-  `MaDanhMuc` bigint(255) AUTO_INCREMENT,
+  `MaDanhMuc` bigint(255) NOT NULL AUTO_INCREMENT,
   `TenDanhMuc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `NgayTao` datetime(6) NULL DEFAULT NULL,
   `NgayCapNhat` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`MaDanhMuc`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of danhmucsp
+-- ----------------------------
+INSERT INTO `danhmucsp` VALUES (1, 'Áo', '2019-05-30 22:07:51.000000', '2019-05-30 22:07:55.000000');
 
 -- ----------------------------
 -- Table structure for donvivanchuyen
@@ -161,7 +178,12 @@ CREATE TABLE `donvivanchuyen`  (
   `DiaChiThucTe` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`MaDV`) USING BTREE,
   INDEX `MaDV`(`MaDV`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of donvivanchuyen
+-- ----------------------------
+INSERT INTO `donvivanchuyen` VALUES (1, 'Giao hàng nhanh', 'giaohangnhanh.com.vn', '32 Đinh Tiên Hàng quận 1 TP HCM');
 
 -- ----------------------------
 -- Table structure for facebookfanpage
@@ -169,27 +191,27 @@ CREATE TABLE `donvivanchuyen`  (
 DROP TABLE IF EXISTS `facebookfanpage`;
 CREATE TABLE `facebookfanpage`  (
   `MaFBFanpage` bigint(255) NOT NULL AUTO_INCREMENT,
-  `MaFanpage` bigint(255)  NULL DEFAULT NULL,
+  `MaFanpage` bigint(255) NULL DEFAULT NULL,
   `SDTFanpage` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `NgayTao` datetime(6) NULL DEFAULT NULL,
   `NgayCapNhat` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`MaFBFanpage`) USING BTREE,
   INDEX `facebookfanpage_ibfk_1`(`MaFanpage`) USING BTREE,
   CONSTRAINT `facebookfanpage_ibfk_1` FOREIGN KEY (`MaFanpage`) REFERENCES `fanpagecuahang` (`MaFanPage`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for fanpagecuahang
 -- ----------------------------
 DROP TABLE IF EXISTS `fanpagecuahang`;
 CREATE TABLE `fanpagecuahang`  (
-  `MaFanPage` bigint(255) AUTO_INCREMENT,
+  `MaFanPage` bigint(255) NOT NULL AUTO_INCREMENT,
   `Ten` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DiaChiURL` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DiaChiThucTe` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `SoDienThoai` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`MaFanPage`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for hoadon
@@ -197,7 +219,7 @@ CREATE TABLE `fanpagecuahang`  (
 DROP TABLE IF EXISTS `hoadon`;
 CREATE TABLE `hoadon`  (
   `MaHoaDon` bigint(255) NOT NULL AUTO_INCREMENT,
-  `MaKhachHang` bigint(255) NULL DEFAULT NULL,
+  `TenKhachHang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DiaChiKhachHang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `SDTKhachHang` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `MaFanpage` bigint(255) NULL DEFAULT NULL,
@@ -207,13 +229,50 @@ CREATE TABLE `hoadon`  (
   `ThoiGianTao` datetime(6) NULL DEFAULT NULL,
   `ThoiGianCapNhat` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`MaHoaDon`) USING BTREE,
-  INDEX `MaKhachHang`(`MaKhachHang`) USING BTREE,
   INDEX `MaGiamGia`(`MaGiamGia`) USING BTREE,
   INDEX `MaFanpage`(`MaFanpage`) USING BTREE,
-  CONSTRAINT `hoadon_ibfk_1` FOREIGN KEY (`MaKhachHang`) REFERENCES `nguoidung` (`MaTaiKhoan`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `hoadon_ibfk_2` FOREIGN KEY (`MaGiamGia`) REFERENCES `magiamgia` (`MaGiamGia`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `hoadon_ibfk_3` FOREIGN KEY (`MaFanpage`) REFERENCES `fanpagecuahang` (`MaFanPage`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of hoadon
+-- ----------------------------
+INSERT INTO `hoadon` VALUES (3, 'awdadawdadad', 'adadadwadawd', '2342334', NULL, 400000, NULL, NULL, '2019-05-31 08:52:22.000000', NULL);
+INSERT INTO `hoadon` VALUES (4, 'awdadlkajlwe a', '12adadadad', '23123', NULL, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (5, 'awdawd', 'awdadw', 'awdawd', NULL, 100000, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (6, 'adawdadw', 'awdawd', 'qwd11', NULL, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (7, 'awd', 'awd', '1', NULL, 900000, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (8, 'awdadw', 'adawd', '12123', NULL, 200000, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (9, 'awdadw', 'adawd', '12123', NULL, 200000, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (10, 'awdadw', 'adawd', '12123', NULL, 200000, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (11, 'awdadw', 'adawd', '12123', NULL, 200000, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (12, 'awdad', 'awdwd', 'awdawd', NULL, 2000000, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (13, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (14, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (16, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (17, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (18, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (19, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (21, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (22, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (23, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (24, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (25, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (28, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (29, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (30, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (32, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (34, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (35, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (37, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- ----------------------------
 -- Table structure for hoadonvanchuyen
@@ -235,7 +294,7 @@ CREATE TABLE `hoadonvanchuyen`  (
   INDEX `MaKhoHang`(`MaKhoHang`) USING BTREE,
   CONSTRAINT `hoadonvanchuyen_ibfk_1` FOREIGN KEY (`DonViVanChuyen`) REFERENCES `donvivanchuyen` (`MaDV`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `hoadonvanchuyen_ibfk_2` FOREIGN KEY (`MaKhoHang`) REFERENCES `khohang` (`MaKhoHang`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for khohang
@@ -246,7 +305,12 @@ CREATE TABLE `khohang`  (
   `Ten` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DiaChi` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`MaKhoHang`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of khohang
+-- ----------------------------
+INSERT INTO `khohang` VALUES (1, 'QuangNam', '235 Cu Chi');
 
 -- ----------------------------
 -- Table structure for magiamgia
@@ -263,7 +327,7 @@ CREATE TABLE `magiamgia`  (
   `NgayTao` datetime(6) NULL DEFAULT NULL,
   `NgayCapNhat` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`MaGiamGia`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for nguoidung
@@ -284,14 +348,14 @@ CREATE TABLE `nguoidung`  (
   INDEX `MaPhanQuyen`(`MaPhanQuyen`) USING BTREE,
   CONSTRAINT `nguoidung_ibfk_1` FOREIGN KEY (`TheNganHang`) REFERENCES `thenganhang` (`MaThe`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `nguoidung_ibfk_2` FOREIGN KEY (`MaPhanQuyen`) REFERENCES `phanquyennguoidung` (`MaPhanQuyenNguoiDung`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for nguonhang
 -- ----------------------------
 DROP TABLE IF EXISTS `nguonhang`;
 CREATE TABLE `nguonhang`  (
-  `MaNguonHang` bigint(255)NOT NULL AUTO_INCREMENT,
+  `MaNguonHang` bigint(255) NOT NULL AUTO_INCREMENT,
   `Ten` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `URLWebsite` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DiaChiThucTe` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
@@ -300,68 +364,73 @@ CREATE TABLE `nguonhang`  (
   `XuatXuHangHoa` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   ` NgayBatDauNhap` date NULL DEFAULT NULL,
   PRIMARY KEY (`MaNguonHang`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for phanquyennguoidung
 -- ----------------------------
 DROP TABLE IF EXISTS `phanquyennguoidung`;
 CREATE TABLE `phanquyennguoidung`  (
-  `MaPhanQuyenNguoiDung` bigint(255) AUTO_INCREMENT,
+  `MaPhanQuyenNguoiDung` bigint(255) NOT NULL AUTO_INCREMENT,
   `Ten` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `NgayTao` datetime(6) NULL DEFAULT NULL,
   `NgayCapNhat` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`MaPhanQuyenNguoiDung`) USING BTREE,
   INDEX `MaPhanQuyenNguoiDung`(`MaPhanQuyenNguoiDung`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sanpham
 -- ----------------------------
 DROP TABLE IF EXISTS `sanpham`;
 CREATE TABLE `sanpham`  (
-  `MaSanPham` bigint(255) AUTO_INCREMENT,
+  `MaSanPham` bigint(255) NOT NULL AUTO_INCREMENT,
   `MaKhoHang` bigint(255) NULL DEFAULT NULL,
   `MaDanhMuc` bigint(255) NULL DEFAULT NULL,
   `Ten` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `Gia` bigint(255) NULL DEFAULT NULL,
   `TrangThai` tinyint(4) NULL DEFAULT NULL,
-  `NgayTao` datetime(6) NULL DEFAULT NULL,
-  `NgayCapNhat` datetime(6) NULL DEFAULT NULL,
+  `NgayTao` datetime(6) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(6),
+  `NgayCapNhat` datetime(6) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(6),
   PRIMARY KEY (`MaSanPham`) USING BTREE,
   INDEX `MaKhoHang`(`MaKhoHang`) USING BTREE,
   INDEX `MaDanhMuc`(`MaDanhMuc`) USING BTREE,
   CONSTRAINT `sanpham_ibfk_1` FOREIGN KEY (`MaKhoHang`) REFERENCES `khohang` (`MaKhoHang`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `sanpham_ibfk_2` FOREIGN KEY (`MaDanhMuc`) REFERENCES `danhmucsp` (`MaDanhMuc`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sanpham
+-- ----------------------------
+INSERT INTO `sanpham` VALUES (1, 1, 1, 'Áo hoa', 100000, 1, '2019-05-30 22:08:15.000000', '2019-05-30 22:08:18.000000');
 
 -- ----------------------------
 -- Table structure for sanphamcungcap
 -- ----------------------------
 DROP TABLE IF EXISTS `sanphamcungcap`;
 CREATE TABLE `sanphamcungcap`  (
-  `MaSanPham` bigint(255) AUTO_INCREMENT,
+  `MaSanPham` bigint(255) NOT NULL AUTO_INCREMENT,
   `SLSanPhamCungCapToiThieu` bigint(255) NULL DEFAULT NULL,
   `Gia` bigint(255) NULL DEFAULT NULL,
   `DonViSanPham` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `HanSuDung` date NULL DEFAULT NULL,
   PRIMARY KEY (`MaSanPham`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for sendofanpage
 -- ----------------------------
 DROP TABLE IF EXISTS `sendofanpage`;
 CREATE TABLE `sendofanpage`  (
-  `MaSDFB` bigint(255)  NOT NULL AUTO_INCREMENT,
-  `MaFB` bigint(255)NULL DEFAULT NULL,
+  `MaSDFB` bigint(255) NOT NULL AUTO_INCREMENT,
+  `MaFB` bigint(255) NULL DEFAULT NULL,
   `SDTFanpage` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `NgayTao` datetime(6) NULL DEFAULT NULL,
   `NgayCapNhat` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`MaSDFB`) USING BTREE,
   INDEX `MaFB`(`MaFB`) USING BTREE,
   CONSTRAINT `sendofanpage_ibfk_1` FOREIGN KEY (`MaFB`) REFERENCES `fanpagecuahang` (`MaFanPage`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for shoppefanpage
@@ -369,14 +438,14 @@ CREATE TABLE `sendofanpage`  (
 DROP TABLE IF EXISTS `shoppefanpage`;
 CREATE TABLE `shoppefanpage`  (
   `MaSPFB` bigint(255) NOT NULL AUTO_INCREMENT,
-  `MaFB` bigint(255)  NULL DEFAULT NULL,
+  `MaFB` bigint(255) NULL DEFAULT NULL,
   `SDT` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `NgayTao` datetime(6) NULL DEFAULT NULL,
   `NgayCapNhat` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`MaSPFB`) USING BTREE,
   INDEX `MaFB`(`MaFB`) USING BTREE,
   CONSTRAINT `shoppefanpage_ibfk_1` FOREIGN KEY (`MaFB`) REFERENCES `fanpagecuahang` (`MaFanPage`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for spdacungcap
@@ -390,7 +459,7 @@ CREATE TABLE `spdacungcap`  (
   INDEX `MaNhaCungCap`(`MaNhaCungCap`) USING BTREE,
   CONSTRAINT `spdacungcap_ibfk_1` FOREIGN KEY (`MaSanPham`) REFERENCES `sanphamcungcap` (`MaSanPham`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `spdacungcap_ibfk_2` FOREIGN KEY (`MaNhaCungCap`) REFERENCES `nguonhang` (`MaNguonHang`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for thenganhang
@@ -402,7 +471,7 @@ CREATE TABLE `thenganhang`  (
   `MaNganHang` bigint(255) NULL DEFAULT NULL,
   `TenNganHang` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`MaThe`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for zalofanpage
@@ -418,6 +487,6 @@ CREATE TABLE `zalofanpage`  (
   PRIMARY KEY (`ZaloFanPage`) USING BTREE,
   INDEX `MaFanpage`(`MaFanpage`) USING BTREE,
   CONSTRAINT `zalofanpage_ibfk_1` FOREIGN KEY (`MaFanpage`) REFERENCES `fanpagecuahang` (`MaFanPage`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;
