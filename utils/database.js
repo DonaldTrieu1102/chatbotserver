@@ -1,14 +1,15 @@
 var mysql = require('mysql');
+var utils = require('../apps/helpers/helper')
 
 var createConnection = () => {
     return mysql.createConnection({
         host: 'localhost',
+        port: '3306',
         user: 'root',
-        password: '123123',
+        password: 'root',
         database: 'manage-store'
     });
 }
-
 
 module.exports = {
     createConnection: createConnection,
@@ -43,6 +44,8 @@ module.exports = {
             var sql = `insert into ${tableName} set ?`;
             var connection = createConnection();
             connection.connect();
+            entity["NgayTao"] = utils.GetTimeNow();
+            entity["NgayCapNhat"] = utils.GetTimeNow();
             connection.query(sql, entity, (error, value) => {
                 if (error)
                     reject(error);
@@ -62,6 +65,8 @@ module.exports = {
             var sql = `update ${tableName} set ? where ${idField} = ?`;
             var connection = createConnection();
             connection.connect();
+            entity["NgayTao"] = utils.GetTimeNow();
+
             connection.query(sql, [entity, id], (error, value) => {
                 if (error)
                     reject(error);
@@ -88,6 +93,34 @@ module.exports = {
             });
         });
     },
+    //Find all table in db
+    findAll: (tableName) => {
+        return new Promise((resolve, reject) => {
+            var sql = `SELECT * from ${tableName}`;
+            var conn = createConnection();
+            conn.connect();
+            conn.query(sql, (err, value) => {
+                if (err) reject(err);
+                else resolve(value);
+                conn.end();
+            });
+        })
+    },
+    findById: (tableName, idField, id) => {
+        return new Promise((resolve, reject) => {
+            var sql = `SELECT * from ${tableName} WHERE ${idField} = ?`;
+            var conn = createConnection();
+            conn.connect();
+            conn.query(sql, id, (err, value) => {
+                if (err) reject(err);
+                else {
+                    resolve(value[0]);
+                }
+                conn.end();
+            });
+        });
+    },
+
     findOne: (tableName, field, value) => {
         return new Promise((resolve, reject) => {
             var sql = `select * from ${tableName} where ${field} = ?`;

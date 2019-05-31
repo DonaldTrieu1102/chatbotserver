@@ -1,0 +1,131 @@
+<main class="main-content">
+    <div id="mainContent">
+        <div class="container mt-60">
+            <div class="masonry-item col-md-12">
+                <div class="card shadow mb-4">
+                    <div class="text-center card-header py-3 text-center">
+                        <h3 class="" style="font-weight: bold; color: #029a00"><a href="../manage-post"></a>Thêm sản
+                            phẩm
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="mt-30">
+                            <form onsubmit="return UpdateProduct({{product.MaSanPham}});" id="update">
+                                <div class="form-group">
+                                    <label for="productName">
+                                        <h5>Tên sản phẩm</h5>
+                                    </label>
+                                    <input type="text" class="form-control" id="productName" name="Ten"
+                                        value="{{product.Ten}}" placeholder="Tên sản phẩm" required>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label for="totalproduct">
+                                            <h5>Tổng số sản phẩm</h5>
+                                        </label>
+                                        <input type="number" class="form-control" id="totalproduct" name="TongSoLuong"
+                                            value="{{productDetail.TongSoLuong}}" placeholder="Tổng số sản phẩm"
+                                            required>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="stock">
+                                            <h5>Số lượng tồn kho</h5>
+                                        </label>
+                                        <input type="number" class="form-control" id="stock" name="TongTonKho"
+                                            value="{{productDetail.TongTonKho}}" placeholder="Số lượng tồn kho"
+                                            required>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label for="consumable">
+                                            <h5>Số lượng có thể bán</h5>
+                                        </label>
+                                        <input type="number" class="form-control" id="consumable" name="SoLuongCoTheBan"
+                                            value="{{productDetail.SoLuongCoTheBan}}" placeholder="Số lượng có thể bán"
+                                            required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="price">
+                                        <h5>Giá</h5>
+                                    </label>
+                                    <input type="number" class="form-control" id="price" name="Gia"
+                                        value="{{product.Gia}}" placeholder="Giá sản phẩm" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="status">
+                                        <h5>Trang thái sản phẩm</h5>
+                                    </label>
+                                    <select id="status" name="TrangThai" class="form-control" required>
+                                        <option value="" selected>None</option>
+                                        {{#each status}}
+                                        <option {{#if selected_3}} selected {{/if}} value="{{value}}">{{name}}
+                                        </option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="category">
+                                        <h5>Danh mục sản phẩm</h5>
+                                    </label>
+                                    <select id="category" name="MaDanhMuc" class="form-control" required>
+                                        <option value="" selected>None</option>
+                                        {{#each categories}}
+                                        <option {{#if selected_1}} selected {{/if}} value="{{MaDanhMuc}}">{{TenDanhMuc}}
+                                        </option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="storage">
+                                        <h5>Kho hàng</h5>
+                                    </label>
+                                    <select id="storage" name="MaKhoHang" class="form-control" required>
+                                        <option value="" selected>None</option>
+                                        {{#each storage}}
+                                        <option {{#if selected_2}} selected {{/if}} value="{{MaKhoHang}}">{{Ten}}
+                                        </option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    Chỉnh sửa sản phẩm
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script>
+    //add new product
+    function UpdateProduct(id) {
+        var frmUn = $('form').serializeArray();
+        var frm = {};
+        $.map(frmUn, function (n, i) {
+            frm[n['name']] = n['value'];
+        });
+        console.log(frm);
+        $.ajax({
+            url: '/admin/manage-product/edit/' + id,
+            method: 'POST',
+            dataType: 'json',
+            contentType: 'application/json',
+            timeout: 20000,
+            data: JSON.stringify(frm),
+            complete: () => console.log('completed submit form update new product'),
+            success: (rs => {
+                console.log('update success');
+                window.location.replace('/admin/manage-product?idCate=' + rs);
+            }),
+            error: (error => {
+                console.log(error);
+                window.location.replace('/admin/manage-product?idCate=' + rs);
+            })
+        });
+        return false;
+    }
+</script>

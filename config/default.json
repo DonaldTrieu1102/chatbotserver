@@ -1,12 +1,12 @@
 {
     "server": {
         "host": "0.0.0.0", 
-        "port": 3000
+        "port": 5000
     },
     "mysql": {
         "host":"localhost",
         "port":"3306",
-        "database":"athena_nails",
+        "database":"manage-store",
         "user":"root",
         "password":"root"
     },

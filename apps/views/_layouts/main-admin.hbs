@@ -58,7 +58,8 @@
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.js">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.js">
     {{!-- format datetime --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/vi.js">
 
@@ -70,22 +71,22 @@
 
     {{!-- bootstrap --}}
     <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.js"></script>
 
     {{!-- font awesome --}}
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" 
-    integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
     <script>
         moment().format("YYYY/MM/DD h:mm:ss");
@@ -128,16 +129,27 @@
                                     class="c-blue-500 ti-home"></i> </span><span class="title">Dashboard</span></a></li>
                     <li class="nav-item dropdown"><a class="dropdown-toggle" href="javascript:void(0);"><span
                                 class="icon-holder"><i class="c-orange-500 ti-layout-list-thumb"></i> </span><span
-                                class="title">Quản lý</span> <span class="arrow"><i class="ti-angle-right"></i></span></a>
+                                class="title">Quản
+                                lý sản phẩm</span> <span class="arrow"><i class="ti-angle-right"></i></span></a>
                         <ul class="dropdown-menu">
-                            <li><a class="sidebar-link" href="/admin/orders">Quản lý hóa đơn</a></li>
-                            <li><a class="sidebar-link" href="/admin/promotions">Quản lý mã giảm giá</a></li>
-                            <li><a class="sidebar-link" href="/admin/manage-post">Quản lý bài viết</a></li>
-                            <li><a class="sidebar-link" href="/admin/manage-user">Quản lý danh sách người dùng</a></li>
+                            {{#each lcCate}} <li><a class="sidebar-link"
+                                    href="/admin/manage-product?idCate={{MaDanhMuc}}">{{TenDanhMuc}}</a>
+                            </li>
+                            {{/each}}
                         </ul>
                     </li>
-                    <li class="nav-item"><a class="sidebar-link" href="email.html"><span class="icon-holder"><i
-                                    class="c-brown-500 ti-email"></i> </span><span class="title">Email</span></a></li>
+                    <li class="nav-item"><a class="sidebar-link" href="/admin/manage-storage"><span
+                                class="icon-holder"><i class="c-brown-500 ti-wallet"></i> </span><span
+                                class="title">Quản lí kho</span></a>
+                    </li>
+                    <li class="nav-item"><a class="sidebar-link" href="/admin/orders"><span class="icon-holder"><i
+                                    class="c-brown-500 ti-receipt"></i> </span><span class="title">Quản lí hóa
+                                đơn</span></a>
+                    </li>
+                    <li class="nav-item"><a class="sidebar-link" href="/admin/promotions"><span class="icon-holder"><i
+                                    class="c-brown-500 ti-shortcode"></i> </span><span class="title">Quản lí mã giảm
+                                giá</span></a>
+                    </li>
                     <li class="nav-item"><a class="sidebar-link" href="compose.html"><span class="icon-holder"><i
                                     class="c-blue-500 ti-share"></i> </span><span class="title">Compose</span></a></li>
                     <li class="nav-item"><a class="sidebar-link" href="calendar.html"><span class="icon-holder"><i
@@ -145,7 +157,8 @@
                                 class="title">Calendar</span></a></li>
                     <li class="nav-item"><a class="sidebar-link" href="chat.html"><span class="icon-holder"><i
                                     class="c-deep-purple-500 ti-comment-alt"></i> </span><span
-                                class="title">Chat</span></a></li>
+                                class="title">Chat</span></a>
+                    </li>
                     <li class="nav-item"><a class="sidebar-link" href="charts.html"><span class="icon-holder"><i
                                     class="c-indigo-500 ti-bar-chart"></i> </span><span class="title">Charts</span></a>
                     </li>

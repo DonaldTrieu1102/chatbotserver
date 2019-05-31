@@ -7,3 +7,5 @@ router.get('/', (req, res) => {
         res.render('admin/VwProducts', {layout: '__layouts/main-admin', list: rows[0]});
     }).catch();
 })
+
+module.exports = router;

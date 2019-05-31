@@ -1,0 +1,63 @@
+<main class="main-content bgc-grey-100">
+    <div id="mainContent">
+        <div class="container-fluid">
+            <h1 class="table-header text-center">Quản lí sản phẩm</h1>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Bảng Sản phẩm</h6>
+                    <a href="/admin/manage-product/add"><button type="button" class="btn btn-success ml-2"><i
+                                class="fas fa-plus-circle mr-1" style="color:#ffffff;"></i>Thêm Sản phẩm</button></a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>MSP</th>
+                                    <th>Tên kho hàng</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Tên</th>
+                                    <th>Giá</th>
+                                    <th>Trạng thái</th>
+                                    <th>Chỉnh sửa</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th width="5%">MSP</th>
+                                    <th width="15%">Tên kho hàng</th>
+                                    <th width="25%">Địa chỉ</th>
+                                    <th width="20%">Tên</th>
+                                    <th width="13%">Giá</th>
+                                    <th width="12%">Trạng thái</th>
+                                    <th width="10%">Chỉnh sửa</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                {{#each listProduct}}
+                                <tr>
+                                    <td>{{MaSanPham}}</td>
+                                    <td>{{TenKhoHang}}</td>
+                                    <td>{{DiaChi}}</td>
+                                    <td>{{Ten}}</td>
+                                    <td>{{Gia}}</td>
+                                    <td>{{TrangThai}}</td>
+                                    <td class="text-center">
+                                        <a href="manage-product/edit/{{MaSanPham}}" class="btn btn-outline-info" role="button">
+                                            <i class="fas fa-eye"></i>
+                                        </a>                                    
+                                        <a href="manage-product/delete?id={{MaSanPham}}&idCate={{MaDanhMuc}}" class="btn btn-outline-danger"
+                                            role="button">
+                                            <i class="fas fa-trash" aria-hidden="true"></i>
+                                        </a>                                       
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

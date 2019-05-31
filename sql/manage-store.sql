@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : tinh
+ Source Server         : AthenaNails
  Source Server Type    : MySQL
- Source Server Version : 100314
+ Source Server Version : 100309
  Source Host           : localhost:3306
  Source Schema         : manage-store
 
  Target Server Type    : MySQL
- Target Server Version : 100314
+ Target Server Version : 100309
  File Encoding         : 65001
 
- Date: 31/05/2019 17:06:30
+ Date: 31/05/2019 17:07:26
 */
 
 SET NAMES utf8mb4;
@@ -165,7 +165,10 @@ CREATE TABLE `danhmucsp`  (
 -- ----------------------------
 -- Records of danhmucsp
 -- ----------------------------
-INSERT INTO `danhmucsp` VALUES (1, 'Áo', '2019-05-30 22:07:51.000000', '2019-05-30 22:07:55.000000');
+INSERT INTO `danhmucsp` VALUES (1, 'Thời trang nam', '2019-05-30 21:10:27.000000', '2019-05-30 21:10:44.000000');
+INSERT INTO `danhmucsp` VALUES (2, 'Thời trang nữ', '2019-05-30 21:10:56.000000', '2019-05-30 21:10:59.000000');
+INSERT INTO `danhmucsp` VALUES (3, 'Điện thoại và phụ kiện', '2019-05-30 21:11:16.000000', '2019-05-30 21:11:19.000000');
+INSERT INTO `danhmucsp` VALUES (4, 'Mẹ và bé', '2019-05-30 21:11:33.000000', '2019-05-30 21:11:37.000000');
 
 -- ----------------------------
 -- Table structure for donvivanchuyen
@@ -310,7 +313,7 @@ CREATE TABLE `khohang`  (
 -- ----------------------------
 -- Records of khohang
 -- ----------------------------
-INSERT INTO `khohang` VALUES (1, 'QuangNam', '235 Cu Chi');
+INSERT INTO `khohang` VALUES (1, 'KH1', 'Quận 9');
 
 -- ----------------------------
 -- Table structure for magiamgia

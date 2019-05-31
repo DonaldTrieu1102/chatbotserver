@@ -1,12 +1,15 @@
 var express = require('express');
 var router = express.Router();
 
-// router.use('/manage-products', require('./product.router'));
+//middleware
+router.use(require("../../middlewares/local.mdw"));
+
+router.use('/manage-product', require('../admin/manage-product'));
 
 //manage-order
-router.use('/orders', require('./order.router'));
+router.use('/orders', require('../admin/order.router'));
 
-router.use('/promotions', require('./promotion.router'));
+router.use('/promotions', require('../admin/promotion.router'));
 
 router.get('/', (req, res) => {
     res.render('admin/VwHome', {layout: '_layouts/main-admin'});
