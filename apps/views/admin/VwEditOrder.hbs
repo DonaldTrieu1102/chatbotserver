@@ -1,0 +1,116 @@
+<script src="//cdn.ckeditor.com/4.11.4/full/ckeditor.js"></script>
+<main class="main-content">
+    <div id="mainContent">
+        <div class="container mt-60">
+            <div class="masonry-item col-md-12">
+                <div class="card shadow mb-4">
+                    <div class="text-center card-header py-3 text-center">
+                        <h3 class="" style="font-weight: bold; color: #029a00"><a href="../manage-post"></a>UPDATE ORDER
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="formAddOrder" method="POST">
+                            <div class="mt-30">
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
+                                        <label for="tenkhachhang">
+                                            <b>Tên khách hàng</b>
+                                        </label>
+                                        <input value="{{entity.TenKhachHang}}" type="text" class="form-control" name="TenKhachHang" id="tenkhachhang"
+                                            autofocus required>
+                                        <label for="sodienthoai">
+                                            <b>Số điện thoại</b>
+                                        </label>
+                                        <input type="text" value="{{entity.SDTKhachHang}}" class="form-control" name="SDTKhachHang" id="sodienthoai"
+                                            required>
+                                        <label for="sodienthoai">
+                                            <b>Địa chỉ</b>
+                                        </label>
+                                        <input type="text" value="{{entity.DiaChiKhachHang}}" class="form-control" name="DiaChiKhachHang" id="address"
+                                            required>
+                                        <div class="card mt-3">
+                                            <div class="card-header"><b>Chọn sản phẩm</b></div>
+                                            <div class="card-body">
+                                                <div class="card-text" id="choose-products">
+                                                    {{#each products}}
+                                                    <div class="product col-md-12 row">
+                                                        <input value="{{SoLuongSP}}" onmouseup="UpdateTotalPrice()"
+                                                            onkeyup="UpdateTotalPrice()" value="0"
+                                                                onscroll="UpdateToTalPrice()"
+                                                            id="{{Gia}}-{{MaSanPham}}" min="0" type="number"
+                                                            class="form-control col-md-1 price" required>
+                                                        <span class="col-md-11 mt-1">{{MaSanPham}} - {{Ten}} -
+                                                            <span>{{Gia}}</span> </span>
+                                                    </div>
+                                                    {{/each}}
+                                                </div>
+                                                <h4 class="mt-5">Tổng giá: <b class="ml-1" id="tmp-total">{{entity.TongGia}}</b></h4>
+                                            </div>
+                                        </div>
+                                        <input value="0" name="TongGia" id="total-price" style="display: none;">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success mr-2 ml-2 mb-3">
+                                Update order</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script>
+    var products = [];
+
+    function UpdateTotalPrice() {
+        var prices = $('.price');
+        var total = 0;
+        for (var i = 0; i < prices.length; i++) {
+            var amount = Number(prices[i].value);
+            var tmp = prices[i].getAttribute("id");
+            var spl = tmp.split('-');
+            var price = Number(spl[0]);
+            var code = spl[1];
+            total += price * amount;
+            console.log(total);
+            if (amount > 0 && !CheckExist(code)) {
+                var object = {};
+                object['amount'] = amount;
+                object['code'] = code;
+                products.push(object);
+                console.log(products);
+            }
+        }
+        $('#tmp-total').text(total);
+        $('#total-price').val(total);
+    }
+
+    function CheckExist(code) { 
+        for (var i = 0; i < products.length; i++) {
+            console.log(products[i]);
+            if (products[i].code === code) return true;
+        }
+        return false;
+    }
+
+    $('#formAddOrder').submit(function(e) {
+        e.preventDefault();
+        var form = $(this);
+        $.ajax({
+            url: '/admin/orders/add',
+            method: 'POST',
+            dataType: 'json',
+            contenType: 'application/json',
+            data: { "form" : form.serialize(), "products": JSON.stringify(products) },
+            success: (value => {
+                console.log('success');
+                window.location.replace('/admin/orders');
+            }),
+            error: (error => {
+                console.log(error);
+                window.location.replace('/admin/orders');
+            })
+        });
+    });
+</script>

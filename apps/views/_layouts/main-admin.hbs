@@ -58,6 +58,7 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.js">
     {{!-- format datetime --}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/vi.js">
 
@@ -66,6 +67,21 @@
     <link rel="stylesheet" href="/css/admin/themify-icons.css">
 
     <link href="/css/admin/style.css" rel="stylesheet">
+
+    {{!-- bootstrap --}}
+    <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.js"></script>
 
     {{!-- font awesome --}}
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" 
@@ -112,11 +128,10 @@
                                     class="c-blue-500 ti-home"></i> </span><span class="title">Dashboard</span></a></li>
                     <li class="nav-item dropdown"><a class="dropdown-toggle" href="javascript:void(0);"><span
                                 class="icon-holder"><i class="c-orange-500 ti-layout-list-thumb"></i> </span><span
-                                class="title">Quản
-                                lý</span> <span class="arrow"><i class="ti-angle-right"></i></span></a>
+                                class="title">Quản lý</span> <span class="arrow"><i class="ti-angle-right"></i></span></a>
                         <ul class="dropdown-menu">
-                            <li><a class="sidebar-link" href="/admin/manage-category">Quản lý chuyên mục</a></li>
-                            <li><a class="sidebar-link" href="/admin/manage-tag">Quản lý nhãn tag</a></li>
+                            <li><a class="sidebar-link" href="/admin/orders">Quản lý hóa đơn</a></li>
+                            <li><a class="sidebar-link" href="/admin/promotions">Quản lý mã giảm giá</a></li>
                             <li><a class="sidebar-link" href="/admin/manage-post">Quản lý bài viết</a></li>
                             <li><a class="sidebar-link" href="/admin/manage-user">Quản lý danh sách người dùng</a></li>
                         </ul>

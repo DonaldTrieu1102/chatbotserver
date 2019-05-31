@@ -3,21 +3,36 @@ var mysql = require('mysql');
 var createConnection = () => {
     return mysql.createConnection({
         host: 'localhost',
-        port: '3000',
         user: 'root',
         password: '123123',
         database: 'manage-store'
     });
 }
 
+
 module.exports = {
-    excute: sql => {
-        return new Promise((resole, reject) => {
+    createConnection: createConnection,
+
+    loadAll: tableName => {
+        return new Promise((resolve, reject) => {
+            var sql = `select * from ${tableName}`
             var conn = createConnection();
             conn.connect();
             conn.query(sql, (error, result) => {
                 if (error) reject(error);
-                else resoleve(result);
+                else resolve(result);
+            })
+
+            conn.end();
+        })
+    },
+    excute: sql => {
+        return new Promise((resolve, reject) => {
+            var conn = createConnection();
+            conn.connect();
+            conn.query(sql, (error, result) => {
+                if (error) reject(error);
+                else resolve(result);
             })
             conn.end();
         })
@@ -73,4 +88,19 @@ module.exports = {
             });
         });
     },
+    findOne: (tableName, field, value) => {
+        return new Promise((resolve, reject) => {
+            var sql = `select * from ${tableName} where ${field} = ?`;
+            var connection = createConnection();
+            connection.connect();
+            connection.query(sql, value, (error, values) => {
+                if (error)
+                    reject(error);
+                else {
+                    resolve(values);
+                }
+                connection.end();
+            });
+        });
+    }
 };

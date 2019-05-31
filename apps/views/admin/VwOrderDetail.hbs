@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<main>
+    <div id="mainContent container">
+        <div class="container">
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body text-left">
+                    <h4 class="card-text"><b>Mã hóa đơn: </b><small>{{entity.MaHoaDon}}</small></h4>
+                    <p class="card-text"><b>Tên khách hàng: &nbsp;</b>{{entity.TenKhachHang}}</p>
+                    <p class="card-text"><b>Địa chỉ khách hàng: &nbsp;</b>{{entity.DiaChiKhachHang}}</p>
+                    <p class="card-text"><b>SĐT khách hàng: &nbsp;</b>{{entity.SDTKhachHang}}</p>
+                    <p class="card-text"><b>Tổng giá: &nbsp;</b>{{entityTongGia}}</p>
+                    <p><b>Sản phẩm: </b></p>
+                    {{#each products}}
+                        <h4 class="card-text"><small>{{Ten}}&nbsp;</small> - {{Gia}} - {{SoLuongSP}}</h4>
+                    {{/each}}
+                    <p class="card-text"><small>Thời gian tạo: &nbsp;{{moment ThoiGianTao format="DD/MM/YYYY hh:mm:ss"}}</small></p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

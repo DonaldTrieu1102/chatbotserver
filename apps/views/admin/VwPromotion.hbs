@@ -1,0 +1,126 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/locale/vi.js">
+<main class="main-content bgc-grey-100">
+    <div id="mainContent">
+        <div class="container-fluid">
+            <h1 class="table-header text-center">Manage promotion</h1>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Order table</h6>
+                    <button type="button" class="btn btn-success ml-2" data-toggle="modal" data-target="#exampleModal"
+                        data-whatever="@mdo"><i class="fas fa-plus-circle mr-1" style="color:#ffffff;"></i>Add
+                        promotion</button>
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">New promotion</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/admin/manage-category/add" method="POST">
+                                        <label for="recipient-name" class="col-form-label">Tiêu đề</label>
+                                        <input type="text" name="TieuDe" class="form-control" id="recipient-name"
+                                            required>
+                                        <label for="descript" class="col-form-label">Miêu tả</label>
+                                        <input type="text" class="form-control" id="descript" name="MieuTa" required>
+                                        <label for="reduce" class="col-form-label">Giá giảm</label>
+                                        <input type="text" class="form-control" name="GiaGiam" id="reduce" required>
+                                        <label for="reduce" class="col-form-label">Hạn sử dụng</label>
+                                        <textarea type="text" class="form-control" name="HanSuDung" id="dateExpire" required></textarea>
+                                        <label for="reduce" class="col-form-label">Ngày áp dụng</label>
+                                        <textarea type="text" class="form-control" name="NgayApDung" id="dateApply" required></textarea>
+                                        <div class="modal-footer mt-2">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-success">Create promotion</button>
+                                        </div>
+                                    </form>
+                                      <script>
+                                        $(function () {
+                                            $("#dateExpire").datepicker();
+                                            $("#dateApply").datepicker();
+                                        });
+                                    </script>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th width="15%">Mã giảm giá</th>
+                                    <th width="15%">Tiêu đề</th>
+                                    <th width="15%">Miêu tả</th>
+                                    <th width="15%">Giá giảm</th>
+                                    <th width="15%">Hạn sử dụng</th>
+                                    <th width="10%">Ngày áp dụng</th>
+                                    <th width="20%">Chỉnh sửa</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th width="15%">Mã giảm giá</th>
+                                    <th width="15%">Tiêu đề</th>
+                                    <th width="15%">Miêu tả</th>
+                                    <th width="10%">Giá giảm</th>
+                                    <th width="15%">Hạn sử dụng</th>
+                                    <th width="15%">Ngày áp dụng</th>
+                                    <th width="20%">Chỉnh sửa</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                {{#each list}}
+                                <tr>
+                                    <td>{{MaGiamGia}}</td>
+                                    <td>{{TieuDe}}</td>
+                                    <td>{{MieuTa}}</td>
+                                    <td>{{GiaGiam}}</td>
+                                    <td>{{moment HanSuDung format="DD/MM/YYYY hh:mm:ss"}}</td>
+                                    <td>{{moment NgayApDung format="DD/MM/YYYY hh:mm:ss"}}</td>
+                                    <td class="text-center">
+                                        <button onclick="ChangeToDetail({{MaGiamGia}})" type="button"
+                                            class="btn btn-cat-control" id="btnCatEdit">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                        <button onclick="ChangeToEdit({{MaGiamGia}})" type="button"
+                                            class="btn btn-cat-control" id="btnCatEdit">
+                                            <i class="fas fa-pen"></i>
+                                        </button>
+                                        <button onclick="functionConfirm({{MaGiamGia}})" type="button"
+                                            class="btn btn-cat-control" id="btnCatRemove">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script type="text/javascript">
+    function functionConfirm(id) {
+        if (confirm("Are you sure delete?")) {
+            window.location.replace("/admin/promotions/delete?id=" + id);
+            return true;
+        }
+        return false;
+    }
+
+    function ChangeToEdit(id) {
+        window.location.replace("/admin/promotions/edit?id=" + id);
+    }
+
+    function ChangeToDetail(id) {
+        window.location.replace("/admin/promotions/detail?id=" + id);
+    }
+</script>
