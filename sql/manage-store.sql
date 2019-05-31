@@ -11,7 +11,7 @@
  Target Server Version : 100309
  File Encoding         : 65001
 
- Date: 31/05/2019 17:07:26
+ Date: 31/05/2019 21:59:12
 */
 
 SET NAMES utf8mb4;
@@ -94,17 +94,9 @@ CREATE TABLE `chitiethoadon`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `MaSanPham`(`MaSanPham`) USING BTREE,
   INDEX `MaHoaDon`(`MaHoaDon`) USING BTREE,
-  CONSTRAINT `chitiethoadon_ibfk_1` FOREIGN KEY (`MaSanPham`) REFERENCES `sanpham` (`MaSanPham`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `chitiethoadon_ibfk_1` FOREIGN KEY (`MaSanPham`) REFERENCES `sanpham` (`MaSanPham`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `chitiethoadon_ibfk_2` FOREIGN KEY (`MaHoaDon`) REFERENCES `hoadon` (`MaHoaDon`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of chitiethoadon
--- ----------------------------
-INSERT INTO `chitiethoadon` VALUES (1, 5, 1, NULL, '1');
-INSERT INTO `chitiethoadon` VALUES (2, 4, 1, NULL, '1');
-INSERT INTO `chitiethoadon` VALUES (3, 3, 1, NULL, '1');
-INSERT INTO `chitiethoadon` VALUES (4, 11, 1, NULL, '1');
 
 -- ----------------------------
 -- Table structure for chitietkhohang
@@ -126,16 +118,15 @@ CREATE TABLE `chitietkhohang`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `chitietsanpham`;
 CREATE TABLE `chitietsanpham`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `MaSanPham` bigint(255) NULL DEFAULT NULL,
+  `MaSanPham` bigint(255) NOT NULL,
   `TongSoLuong` bigint(255) NULL DEFAULT NULL,
   `TongTonKho` bigint(255) NULL DEFAULT NULL,
   `SoLuongCoTheBan` bigint(255) NULL DEFAULT NULL,
   `SoMauMa` int(255) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
+  PRIMARY KEY (`MaSanPham`) USING BTREE,
   INDEX `MaSanPham`(`MaSanPham`) USING BTREE,
   CONSTRAINT `chitietsanpham_ibfk_1` FOREIGN KEY (`MaSanPham`) REFERENCES `sanpham` (`MaSanPham`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for ctyquangcao
@@ -160,7 +151,7 @@ CREATE TABLE `danhmucsp`  (
   `NgayTao` datetime(6) NULL DEFAULT NULL,
   `NgayCapNhat` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`MaDanhMuc`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of danhmucsp
@@ -307,13 +298,10 @@ CREATE TABLE `khohang`  (
   `MaKhoHang` bigint(255) NOT NULL AUTO_INCREMENT,
   `Ten` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `DiaChi` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `NgayTao` datetime(0) NULL DEFAULT NULL,
+  `NgayCapNhat` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`MaKhoHang`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of khohang
--- ----------------------------
-INSERT INTO `khohang` VALUES (1, 'KH1', 'Quận 9');
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for magiamgia
@@ -401,11 +389,6 @@ CREATE TABLE `sanpham`  (
   CONSTRAINT `sanpham_ibfk_1` FOREIGN KEY (`MaKhoHang`) REFERENCES `khohang` (`MaKhoHang`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `sanpham_ibfk_2` FOREIGN KEY (`MaDanhMuc`) REFERENCES `danhmucsp` (`MaDanhMuc`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sanpham
--- ----------------------------
-INSERT INTO `sanpham` VALUES (1, 1, 1, 'Áo hoa', 100000, 1, '2019-05-30 22:08:15.000000', '2019-05-30 22:08:18.000000');
 
 -- ----------------------------
 -- Table structure for sanphamcungcap

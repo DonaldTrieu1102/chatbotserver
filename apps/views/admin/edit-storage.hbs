@@ -9,24 +9,24 @@
                     </div>
                     <div class="card-body">
                         <div class="mt-30">
-                            <form onsubmit="return AddStorage();" id="formAdd">
+                            <form onsubmit="return UpdateStorage({{storage.MaKhoHang}});" id="formUpdate">
                                 <div class="form-group">
                                     <label for="storageName">
                                         <h5>Tên kho hàng</h5>
                                     </label>
-                                    <input type="text" class="form-control" id="storageName" name="Ten"
+                                    <input type="text" class="form-control" id="storageName" name="Ten" value="{{storage.Ten}}"
                                         placeholder="Tên kho hàng" required>
                                 </div>
                                  <div class="form-group">
                                     <label for="address">
                                         <h5>Địa chỉ kho hàng</h5>
                                     </label>
-                                    <input type="text" class="form-control" id="address" name="DiaChi"
+                                    <input type="text" class="form-control" id="address" name="DiaChi" value="{{storage.DiaChi}}"
                                         placeholder="Địa chỉ kho hàng" required>
                                 </div>
                               
                                 <button type="submit" class="btn btn-primary">
-                                    Thêm kho hàng
+                                    Chỉnh sửa kho hàng
                                 </button>
                             </form>
                         </div>
@@ -39,14 +39,14 @@
 
 <script>
     //add new product
-    function AddStorage() {
+    function UpdateStorage(id) {
         var frmUn = $('form').serializeArray();
         var frm = {};
         $.map(frmUn, function (n, i) {
             frm[n['name']] = n['value'];
         });
         $.ajax({
-            url: '/admin/manage-storage/add',
+            url: '/admin/manage-storage/edit/' + id,
             method: 'POST',
             dataType: 'json',
             contentType: 'application/json',

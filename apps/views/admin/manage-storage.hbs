@@ -1,0 +1,55 @@
+<main class="main-content bgc-grey-100">
+    <div id="mainContent">
+        <div class="container-fluid">
+            <h1 class="table-header text-center">Quản lí kho hàng</h1>
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Bảng kho hàng</h6>
+                    <a href="/admin/manage-storage/add"><button type="button" class="btn btn-success ml-2"><i
+                                class="fas fa-plus-circle mr-1" style="color:#ffffff;"></i>Thêm kho hàng</button></a>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-bordered text-center" id="dataTable" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th>MKH</th>
+                                    <th>Tên kho hàng</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Chỉnh sửa</th>
+                                </tr>
+                            </thead>
+                            <tfoot>
+                                <tr>
+                                    <th width="5%">MSP</th>
+                                    <th width="40%">Tên kho hàng</th>
+                                    <th width="45%">Địa chỉ</th>                               
+                                    <th width="10%">Chỉnh sửa</th>
+                                </tr>
+                            </tfoot>
+                            <tbody>
+                                {{#each listStorage}}
+                                <tr>
+                                    <td>{{MaKhoHang}}</td>
+                                    <td>{{Ten}}</td>
+                                    <td>{{DiaChi}}</td>                                 
+                                    <td class="text-center">     
+                                        <a href="manage-storage/edit/{{MaKhoHang}}" class="btn btn-outline-info"
+                                            role="button">
+                                            <i class="fas fa-pen" aria-hidden="true"></i>
+                                        </a>                                                                       
+                                        <a href="manage-storage/delete?id={{MaKhoHang}}" class="btn btn-outline-danger"
+                                            role="button">
+                                            <i class="fas fa-trash" aria-hidden="true"></i>
+                                        </a>                                       
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
