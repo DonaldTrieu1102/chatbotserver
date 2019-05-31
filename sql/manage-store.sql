@@ -11,7 +11,7 @@
  Target Server Version : 100309
  File Encoding         : 65001
 
- Date: 31/05/2019 21:59:12
+ Date: 31/05/2019 22:25:50
 */
 
 SET NAMES utf8mb4;
@@ -91,12 +91,19 @@ CREATE TABLE `chitiethoadon`  (
   `MaSanPham` bigint(255) NULL DEFAULT NULL,
   `MaGiamGia` bigint(255) NULL DEFAULT NULL,
   `SoLuongSP` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `NgayTao` datetime(0) NULL DEFAULT NULL,
+  `NgayCapNhat` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `MaSanPham`(`MaSanPham`) USING BTREE,
   INDEX `MaHoaDon`(`MaHoaDon`) USING BTREE,
   CONSTRAINT `chitiethoadon_ibfk_1` FOREIGN KEY (`MaSanPham`) REFERENCES `sanpham` (`MaSanPham`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `chitiethoadon_ibfk_2` FOREIGN KEY (`MaHoaDon`) REFERENCES `hoadon` (`MaHoaDon`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of chitiethoadon
+-- ----------------------------
+INSERT INTO `chitiethoadon` VALUES (5, 40, 2, NULL, '1', '2019-05-31 10:17:57', '2019-05-31 10:17:57');
 
 -- ----------------------------
 -- Table structure for chitietkhohang
@@ -123,10 +130,17 @@ CREATE TABLE `chitietsanpham`  (
   `TongTonKho` bigint(255) NULL DEFAULT NULL,
   `SoLuongCoTheBan` bigint(255) NULL DEFAULT NULL,
   `SoMauMa` int(255) NULL DEFAULT NULL,
+  `NgayTao` datetime(0) NULL DEFAULT NULL,
+  `NgayCapNhat` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`MaSanPham`) USING BTREE,
   INDEX `MaSanPham`(`MaSanPham`) USING BTREE,
   CONSTRAINT `chitietsanpham_ibfk_1` FOREIGN KEY (`MaSanPham`) REFERENCES `sanpham` (`MaSanPham`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of chitietsanpham
+-- ----------------------------
+INSERT INTO `chitietsanpham` VALUES (3, 100, 0, 0, NULL, '2019-05-31 10:14:50', '2019-05-31 10:14:50');
 
 -- ----------------------------
 -- Table structure for ctyquangcao
@@ -222,51 +236,28 @@ CREATE TABLE `hoadon`  (
   `MaGiamGia` bigint(255) NULL DEFAULT NULL,
   `ThoiGianTao` datetime(6) NULL DEFAULT NULL,
   `ThoiGianCapNhat` datetime(6) NULL DEFAULT NULL,
+  `NgayTao` datetime(0) NULL DEFAULT NULL,
+  `NgayCapNhat` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`MaHoaDon`) USING BTREE,
   INDEX `MaGiamGia`(`MaGiamGia`) USING BTREE,
   INDEX `MaFanpage`(`MaFanpage`) USING BTREE,
   CONSTRAINT `hoadon_ibfk_2` FOREIGN KEY (`MaGiamGia`) REFERENCES `magiamgia` (`MaGiamGia`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `hoadon_ibfk_3` FOREIGN KEY (`MaFanpage`) REFERENCES `fanpagecuahang` (`MaFanPage`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 38 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of hoadon
 -- ----------------------------
-INSERT INTO `hoadon` VALUES (3, 'awdadawdadad', 'adadadwadawd', '2342334', NULL, 400000, NULL, NULL, '2019-05-31 08:52:22.000000', NULL);
-INSERT INTO `hoadon` VALUES (4, 'awdadlkajlwe a', '12adadadad', '23123', NULL, 0, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (5, 'awdawd', 'awdadw', 'awdawd', NULL, 100000, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (6, 'adawdadw', 'awdawd', 'qwd11', NULL, 0, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (7, 'awd', 'awd', '1', NULL, 900000, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (8, 'awdadw', 'adawd', '12123', NULL, 200000, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (9, 'awdadw', 'adawd', '12123', NULL, 200000, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (10, 'awdadw', 'adawd', '12123', NULL, 200000, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (11, 'awdadw', 'adawd', '12123', NULL, 200000, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (12, 'awdad', 'awdwd', 'awdawd', NULL, 2000000, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (13, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (14, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (15, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (16, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (17, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (18, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (19, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (20, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (21, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (22, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (23, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (24, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (25, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (26, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (27, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (28, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (29, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (30, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (31, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (32, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (33, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (34, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (35, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (36, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO `hoadon` VALUES (37, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (4, 'awdadlkajlwe a', '12adadadad', '23123', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (5, 'awdawd', 'awdadw', 'awdawd', NULL, 100000, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (6, 'adawdadw', 'awdawd', 'qwd11', NULL, 0, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (7, 'awd', 'awd', '1', NULL, 900000, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (8, 'awdadw', 'adawd', '12123', NULL, 200000, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (9, 'awdadw', 'adawd', '12123', NULL, 200000, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (10, 'awdadw', 'adawd', '12123', NULL, 200000, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (11, 'awdadw', 'adawd', '12123', NULL, 200000, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (12, 'awdad', 'awdwd', 'awdawd', NULL, 2000000, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `hoadon` VALUES (40, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2019-05-31 10:17:57', '2019-05-31 10:17:57');
 
 -- ----------------------------
 -- Table structure for hoadonvanchuyen
@@ -301,7 +292,13 @@ CREATE TABLE `khohang`  (
   `NgayTao` datetime(0) NULL DEFAULT NULL,
   `NgayCapNhat` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`MaKhoHang`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of khohang
+-- ----------------------------
+INSERT INTO `khohang` VALUES (5, 'KH1', 'Quận 10', '2019-05-31 10:12:45', '2019-05-31 10:12:45');
+INSERT INTO `khohang` VALUES (6, 'KH2', 'Quận 9', '2019-05-31 10:12:52', '2019-05-31 10:12:52');
 
 -- ----------------------------
 -- Table structure for magiamgia
@@ -388,7 +385,13 @@ CREATE TABLE `sanpham`  (
   INDEX `MaDanhMuc`(`MaDanhMuc`) USING BTREE,
   CONSTRAINT `sanpham_ibfk_1` FOREIGN KEY (`MaKhoHang`) REFERENCES `khohang` (`MaKhoHang`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `sanpham_ibfk_2` FOREIGN KEY (`MaDanhMuc`) REFERENCES `danhmucsp` (`MaDanhMuc`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of sanpham
+-- ----------------------------
+INSERT INTO `sanpham` VALUES (2, 5, 1, 'Quần jean nam', 11111111, 1, '2019-05-31 10:13:15.000000', '2019-05-31 10:13:15.000000');
+INSERT INTO `sanpham` VALUES (3, 5, 1, 'Quần jean nam', 11111111, 1, '2019-05-31 10:14:50.000000', '2019-05-31 10:14:50.000000');
 
 -- ----------------------------
 -- Table structure for sanphamcungcap
