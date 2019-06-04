@@ -29,20 +29,29 @@ router.get('/add', (req, res) => {
 })
 
 router.post('/add', (req, res) => {
-    var entity = req.body.form;
+    var form = req.body.form;
+    form = JSON.parse(form);
+    var entity = {};
+
+    for (var i = 0; i < form.length; i++) {
+        console.log(form[i]);
+        entity[form[i].name] = form[i].value;
+    }
     var products = JSON.parse(req.body.products);
-    var order = {"TenKhachHang": entity.TenKhachHang, "SDTKhachHang": entity.SDTKhachHang, "DiaChiKhachHang": entity.DiaChiKhachHang};
+    var order = {"TenKhachHang": entity.TenKhachHang, "SDTKhachHang": 
+
+    entity.SDTKhachHang, "DiaChiKhachHang": 
+    entity.DiaChiKhachHang, 
+    "TongGia": entity.TongGia};
 
     orderModel.add(order).then(values => {
-        res.redirect('/admin/orders');
-
         for (var i = 0; i < products.length; i++) {
             console.log(products[i].amount);
             var orderDetail = {"MaHoaDon" : values, "MaSanPham": products[i].code, "SoLuongSP" : products[i].amount};
             orderDetailModel.add(orderDetail).then().catch(err => console.log(err));
         }
 
-        res.status(200);
+        res.json(200);
     }).catch(err => console.log(err));
 })
 

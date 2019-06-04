@@ -16,7 +16,7 @@
                                         <label for="tenkhachhang">
                                             <b>Tên khách hàng</b>
                                         </label>
-                                        <input type="text" class="form-control" name="tenkhachhang" id="tenkhachhang"
+                                        <input type="text" class="form-control" name="TenKhachHang" id="tenkhachhang"
                                             autofocus required>
                                         <label for="sodienthoai">
                                             <b>Số điện thoại</b>
@@ -97,13 +97,15 @@
 
     $('#formAddOrder').submit(function(e) {
         e.preventDefault();
-        var form = $(this);
+        var form = $(this).serializeArray();
+
+        console.log(form);
         $.ajax({
             url: '/admin/orders/add',
             method: 'POST',
             dataType: 'json',
             contenType: 'application/json',
-            data: { "form" : form.serialize(), "products": JSON.stringify(products) },
+            data: { "form" : JSON.stringify(form), "products": JSON.stringify(products) },
             success: (value => {
                 console.log('success');
                 window.location.replace('/admin/orders');

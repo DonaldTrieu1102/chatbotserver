@@ -1,0 +1,118 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Trang đăng nhập</title>
+	<!--Made with love by Mutiullah Samim -->
+
+	<!--Bootsrap 4 CDN-->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+	<!--Fontawesome CDN-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+		integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+	<!--Custom styles-->
+	<link rel="stylesheet" type="text/css" href="/css/login.style.css">
+</head>
+
+
+
+<body>
+	<script>
+		window.fbAsyncInit = function () {
+			FB.init({
+				appId: '2266181740128243',
+				cookie: true,
+				xfbml: true,
+				version: 'v3.3'
+			});
+
+			FB.AppEvents.logPageView();
+
+		};
+
+		(function (d, s, id) {
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) { return; }
+			js = d.createElement(s); js.id = id;
+			js.src = "https://connect.facebook.net/en_US/sdk.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
+	<div id="fb-root"></div>
+	<script async defer crossorigin="anonymous"
+		src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v3.3&appId=2266181740128243&autoLogAppEvents=1"></script>
+	<div class="container">
+		<div class="d-flex justify-content-center h-100">
+			<div class="card">
+				<div class="card-header">
+					<h3>Đăng nhập</h3>
+					<div class="d-flex justify-content-end social_icon">
+
+						<span><i class="fab fa-facebook-square"></i></span>
+						<span><i class="fab fa-google-plus-square"></i></span>
+						<span><i class="fab fa-twitter-square"></i></span>
+					</div>
+				</div>
+				<div class="card-body">
+					{{#if err_message}}
+					<div class="alert alert-warning alert-dismissible fade show" role="alert">
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						{{err_message}}
+					</div>
+					{{/if}}
+					<form method="POST">
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-user"></i></span>
+							</div>
+							<input name="username" type="text" class="form-control" placeholder="Tên đăng nhập">
+
+						</div>
+						<div class="input-group form-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text"><i class="fas fa-key"></i></span>
+							</div>
+							<input name="password" type="password" class="form-control" placeholder="Mật khẩu">
+						</div>
+						<div class="row align-items-center remember">
+							<input type="checkbox">Lưu đăng nhập<br>
+						</div>
+
+						<div class="form-group">
+							<div class="fb-login-button" data-width="" data-size="large" data-button-type="login_with"
+								data-auto-logout-link="false" data-use-continue-as="false"></div>
+
+							<input type="submit" value="Gửi" class="btn float-right login_btn">
+						</div>
+					</form>
+				</div>
+				<div class="card-footer">
+					<div class="d-flex justify-content-center links">
+						Chưa có tài khoản?<a href="/register">Đăng ký</a>
+					</div>
+					<div class="d-flex justify-content-center">
+						<a href="/forgot">Quên mật khẩu?</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	function checkLoginState() {
+		FB.getLoginStatus(function (response) {
+		});
+	}
+</script>
+
+</html>
