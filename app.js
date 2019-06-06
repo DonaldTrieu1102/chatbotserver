@@ -44,14 +44,20 @@ var handlebars = require("express-handlebars").create({
 });
 app.engine('hbs', handlebars.engine);
 
+
+
 //set moment helper for handlebars
 var Handlebars = require("handlebars");
 var MomentHandler = require("handlebars.moment");
 MomentHandler.registerHelpers(Handlebars);
 
-app.use('/', index);
+require('./apps/routers/index')(app);
+
+app.use("/", require('./apps/routers/fanpage/index'));
 
 var port = config.get("server.port");
+
 app.listen(process.env.PORT || port, function () {
   console.log("Server is running on port: ", port);
 });
+

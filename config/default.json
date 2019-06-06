@@ -14,7 +14,7 @@
     "secret_key":"secret_key",
     "facebook" : {
        "APP_SECRET" : "f7775684d7ef1c2c9c1d59208b2d5760",
-       "VALIDATION_TOKEN" : "donaldtrieu1102",
-       "PAGE_ACCESS_TOKEN" : "EAAgNFI2d5ZCMBALIHRL9qCX7dKoeERaPzBK8fkOcFY0wpAJJrxcyxPIgPHk13yWX5z0NNZAphbsRvndaw4EZBt8nUdhQQqXt7TFG1IIK9F7JyZA7yTtsu99AS6ZBnSWhgs50kKF4o4hj2uE0sU2mV6h2sxJU3zopIXdCK0wKVugZDZD"
+       "VERIFY_TOKEN" : "teamwork",
+       "PAGE_ACCESS_TOKEN" : "EAAgNFI2d5ZCMBAIHmGQDcKf8sWGuHDpPUzvQRjyoS4Yd0oMa9IbnyGHbWuxrTAQZBrpgkzqzB1KbfQxmZC5NPtmQC1ZC8XfsFRsVVp9YKGDG4WMXkyZAiTolwZB2blw3l0Qn8VGdezZA8qCU3teNEN5xfBnTcg0mbW7EzYxVnOroL0jFicWjhWg"
     }
 }

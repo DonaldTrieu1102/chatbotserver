@@ -1,16 +1,10 @@
-var express = require('express');
-var router = express.Router();
+module.exports = function (app) {
+    //router admin
+    app.use("/admin", require('./admin/index'));
+    app.use('/login', require('./login.router'));
+
+    require('../controllers/webhook')(app);
+
+}
 
 
-//middleware
-// router.use(require("../middlewares/local.mdw"));
-
-//router admin
-router.use("/admin", require('./admin/index'));
-router.use('/login', require('./login.router'));
-
-router.use("/", require('./fanpage/index'));
-
-
-
-module.exports = router;
