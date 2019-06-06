@@ -1,72 +1,119 @@
 module.exports = function (app) {
 
-    // const { FacebookAdapter } = require('botbuilder-adapter-facebook');
-    // const { Botkit } = require('botkit');
-    // const config = require('config');
+    const PAGE_ACCESS_TOKEN = "EAAdISHr7nwcBAJz0GU0SOLsk1wjEmj4lgNYZByU7DwuuwQ6vzi5u7YRZCff8geZAvKvw4QL6m7xFWKiNAW4kOyzwPYNS3MCev9MpiOhTHyDsFKN3kLUBRtbfRT1gR7xnrLbpi0Xl2s4mYf9RH8sEQTZAtyHOviqo58yXPX5YHLc1gnjF66Ed";
 
-    // const adapter = new FacebookAdapter({
-    //     verify_token: process.env.FACEBOOK_VERIFY_TOKEN || config.get('facebook.VERIFY_TOKEN'),
-    //     app_secret: process.env.FACEBOOK_APP_SECRET || config.get('facebook.APP_SECRET'),
-    //     access_token: process.env.FACEBOOK_ACCESS_TOKEN || config.get('facebook.PAGE_ACCESS_TOKEN')
-    // })
+    const
+        request = require('request');
+    // Accepts POST requests at /webhook endpoint
+    app.post('/webhook', (req, res) => {
 
+        // Parse the request body from the POST
+        let body = req.body;
 
-    // var mongoUri = process.env.MONGODB_URI || 'mongodb://localhost/mongo-sample'
-    // var db = require('../common/mongo')({ mongoUri: mongoUri })
+        // Check the webhook event is from a Page subscription
+        if (body.object === 'page') {
 
-    // const controller = new Botkit({
-    //     adapter: adapter,
-    //     webserver: app,
-    //     storage: db
-    // });
+            // Iterate over each entry - there may be multiple if batched
+            body.entry.forEach(function (entry) {
 
-    // controller.on('message', async (bot, message) => {
-    //     console.log(message);
-    //     await bot.reply(message, 'I heard a message');
-    // });
+                // Get the webhook event. entry.messaging is an array, but 
+                // will only ever contain one event, so we get index 0
+                let webhook_event = entry;
 
-    // controller.hears('hello', 'message', async (bot, message) => {
-    //     // do something!
-    //     console.log(message);
-    //     await bot.reply(message, 'Hello human')
-    // });
+                for (let messaging of entry.messaging) {
+                    let sender_psid = messaging.sender.id;
+                    console.log('Sender PSID: ' + sender_psid);
 
-    // Đây là đoạn code để tạo Webhook
-    app.get('/webhook', function (req, res) {
-        if (req.query['hub.verify_token'] === 'teamwork') {
-            res.send(req.query['hub.challenge']);
+                    // Check if the event is a message or postback and
+                    // pass the event to the appropriate handler function
+                    if (messaging.message) {
+                        handleMessage(sender_psid, messaging.message);
+                    } else if (messaging.postback) {
+                        handlePostback(sender_psid, messaging.postback);
+                    }
+                }
+            });
+
+            // Return a '200 OK' response to all events
+            res.status(200).send('EVENT_RECEIVED');
+
+        } else {
+            // Return a '404 Not Found' if event is not from a page subscription
+            res.sendStatus(404);
         }
-        else res.send('Error, wrong validation token');
+
     });
 
-    app.post('/webhook', (req, res) => {
-        var entries = req.body.entry;
-        for (var entry of entries) {
-            var message = entry.message;
-            var senderId = entry.sender.id;
-            if (message.text) {
-                var text = message.text;
-                console.log(text); // In tin nhắn người dùng
-                sendMessage(senderId, "Tui là bot đây: " + text);
+    // Accepts GET requests at the /webhook endpoint
+    app.get('/webhook', (req, res) => {
+
+        /** UPDATE YOUR VERIFY TOKEN **/
+        const VERIFY_TOKEN = "teamwork";
+
+        // Parse params from the webhook verification request
+        let mode = req.query['hub.mode'];
+        let token = req.query['hub.verify_token'];
+        let challenge = req.query['hub.challenge'];
+
+        // Check if a token and mode were sent
+        if (mode && token) {
+
+            // Check the mode and token sent are correct
+            if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+
+                // Respond with 200 OK and challenge token from the request
+                console.log('WEBHOOK_VERIFIED');
+                res.status(200).send(challenge);
+
+            } else {
+                // Responds with '403 Forbidden' if verify tokens do not match
+                res.sendStatus(403);
+            }
+        }
+    });
+
+    // Handles messages events
+    function handleMessage(sender_psid, received_message) {
+        let response;
+
+        // Check if the message contains text
+        if (received_message.text) {
+
+            // Create the payload for a basic text message
+            response = {
+                "text": `You sent the message: "${received_message.text}". Now send me an image!`
             }
         }
 
-    });
+        // Sends the response message
+        callSendAPI(sender_psid, response);
+    }
+
+    // Handles messaging_postbacks events
+    function handlePostback(sender_psid, received_postback) {
+
+    }
     // Gửi thông tin tới REST API để trả lời
-    function sendMessage(senderId, message) {
-        request({
-            uri: "https://graph.facebook.com/v2.6/me/messages",
-            qs: {
-                access_token: "EAAgNFI2d5ZCMBADVTcpmSv2IHe75t9Q0b0YnY988XKjCZB4qZCwKascCDFokntijnKvGvfHjP8X1G00zZABveinZCAyxOZBhwAQpfByzPaMgsftrJrJPUd5uF8ZA7SsZCHY25uGXZB0BKGYsbQuCrpMyGuJZAthpnqwqIqEWeTgSdKAP0REUmh1TQn",
+    function callSendAPI(senderId, message) {
+        // Send the HTTP request to the Messenger Platform
+        // Construct the message body
+        let request_body = {
+            "recipient": {
+                "id": senderId
             },
-            method: 'POST',
-            json: {
-                recipient: {
-                    id: senderId
-                },
-                message: {
-                    text: message
-                }
+            "message": message
+        }
+
+        request({
+            "uri": "https://graph.facebook.com/v2.6/me/messages",
+            "qs": { "access_token": PAGE_ACCESS_TOKEN },
+            "method": "POST",
+            "json": request_body
+        }, (err, res, body) => {
+            if (!err) {
+                console.log('message sent!')
+            } else {
+                console.error("Unable to send message:" + err);
             }
         });
     }
