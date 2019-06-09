@@ -1,98 +1,137 @@
-/* eslint-disable brace-style */
-/* eslint-disable camelcase */
-var db = require('monkii')
-/**
- * botkit-storage-mongo - MongoDB driver for Botkit
- *
- * @param  {Object} config
- * @return {Object}
- */
-module.exports = function (config) {
-  if (!config || !config.mongoUri) {
-    throw new Error('Need to provide mongo address.')
-  }
+//lets require/import the mongodb native drivers.
+var mongodb = require('mongodb');
 
-  var Teams = db(config.mongoUri).get('teams')
-  var Users = db(config.mongoUri).get('users')
-  var Channels = db(config.mongoUri).get('channels')
+//We need to work with "MongoClient" interface in order to connect to a mongodb server.
+var MongoClient = mongodb.MongoClient;
 
-  var unwrapFromList = function (cb) {
-    return function (err, data) {
-      if (err) return cb(err)
-      cb(null, data)
-    }
-  }
+// Connection URL. This is where your mongodb server is running.
+var url = 'mongodb://localhost:27017/store';
 
-  return {
-    teams: {
-      get: function (id, cb) {
-        Teams.findOne({id: id}, unwrapFromList(cb))
-      },
-      save: function (data, cb) {
-        Teams.findAndModify({
-          id: data.id
-        }, data, {
-          upsert: true,
-          new: true
-        }, cb)
-      },
-      all: function (cb) {
-        Teams.find({}, cb)
-      }
-    },
-    users: {
-      get: function (id, cb) {
-        Users.findOne({id: id}, unwrapFromList(cb))
-      },
-      save: function (data, cb) {
-        Users.findAndModify({
-          id: data.id
-        }, data, {
-          upsert: true,
-          new: true
-        }, cb)
-      },
-      find_or_create: function (data, cb) {
-        Users.findOne({
-          id: data.id
-        }, function (err, user) {
+module.exports = {
+  // Use connect method to connect to the Server
+  insertOne: (collectName, entity) => {
+    return new Promise((resolve, reject) => {
+      MongoClient.connect(url).then(database => {
+        //HURRAY!! We are connected. :)
+        console.log('Connection established to', url);
+        console.log('insert one');
+        var db = database.db('store');
+        var collection = db.collection(collectName);
+        collection.insertOne(entity, (err, result) => {
           if (err) {
-            cb(err)
+            reject(err);
           }
-          else if (!user) {
-            Users.findAndModify({
-              id: data.id
-            }, data, {
-              upsert: true,
-              new: true
-            }, cb)
+          else {
+            resolve(result);
           }
-                    else {
-            cb(null, user)
-          }
+          database.close();
         })
-      },
-      all: function (cb) {
-        Users.find({}, cb)
-      }
-    },
-    channels: {
-      get: function (id, cb) {
-        Channels.findOne({id: id}, unwrapFromList(cb))
-      },
-      save: function (data, cb) {
-        Channels.findAndModify({
-          id: data.id
-        }, data, {
-          upsert: true,
-          new: true
-        }, cb)
-      },
-      all: function (cb) {
-        Channels.find({}, cb)
-      }
-    }
+      })
+        .catch(err => {
+          console.log('Unable to connect to the mongoDB server. Error:', err);
+        })
+
+    })
+  },
+  updateOne: (collectName, entity) => {
+    return new Promise((resolve, reject) => {
+      MongoClient.connect(url).then(database => {
+        //HURRAY!! We are connected. :)
+        console.log('Connection established to', url);
+        console.log('update one');
+        var db = database.db('store');
+        var collection = db.collection(collectName);
+        collection.updateOne(entity, { '$set': { enabled: false } }, (err, item) => {
+          if (err) reject(err);
+          else resolve(item);
+          database.close();
+        })
+      })
+        .catch(err => {
+          console.log('Unable to connect to the mongoDB server. Error:', err);
+        })
+
+    })
+  },
+  all: (collectName) => {
+
+    return new Promise((resolve, reject) => {
+      MongoClient.connect(url).then(database => {
+        //HURRAY!! We are connected. :)
+        console.log('Connection established to', url);
+        console.log('all');
+        var db = database.db('store');
+        var collection = db.collection(collectName);
+        collection.find().toArray((err, items) => {
+          if (err) reject(err);
+          else resolve(items);
+          database.close();
+        })
+      })
+        .catch(err => {
+          console.log('Unable to connect to the mongoDB server. Error:', err);
+        })
+
+    })
+  },
+  findOne: (collectName, query) => {
+    return new Promise((resolve, reject) => {
+      MongoClient.connect(url).then(database => {
+        //HURRAY!! We are connected. :)
+        console.log('Connection established to', url);
+        console.log('find one');
+        var db = database.db('store');
+        var collection = db.collection(collectName);
+        collection.findOne(query, (err, value) => {
+          if (err) reject(err);
+          else resolve(value);
+          database.close();
+        })
+      })
+        .catch(err => {
+          console.log('Unable to connect to the mongoDB server. Error:', err);
+        })
+    })
+  },
+  findAllBy: (collectName, query) => {
+    return new Promise((resolve, reject) => {
+      MongoClient.connect(url).then(database => {
+        //HURRAY!! We are connected. :)
+        console.log('Connection established to', url);
+        console.log('find by');
+
+        var db = database.db('store');
+        var collection = db.collection(collectName);
+
+        collection.find(query).toArray((err, result) => {
+          if (err) reject(err);
+          else resolve(result);
+          database.close();
+        })
+      })
+        .catch(err => {
+          console.log('Unable to connect to the mongoDB server. Error:', err);
+        })
+    })
+  },
+  findAndUpdate: (collectName, query, entity) => {
+    return new Promise((resolve, reject) => {
+      MongoClient.connect(url).then(database => {
+        //HURRAY!! We are connected. :)
+        console.log('Connection established to', url);
+        console.log('find and update');
+        var db = database.db('store');
+        var collection = db.collection(collectName);
+        collection.findOneAndUpdate(query, {$set: entity}, {upsert: true}, (err, value) => {
+          if (err) reject(err);
+          else resolve(value);
+          database.close();
+        })
+      })
+        .catch(err => {
+          console.log('Unable to connect to the mongoDB server. Error:', err);
+        })
+    })
   }
+
 }
-/* eslint-disable brace-style */
-/* eslint-disable camelcase */

@@ -15,6 +15,9 @@
     "facebook" : {
        "APP_SECRET" : "f7775684d7ef1c2c9c1d59208b2d5760",
        "VERIFY_TOKEN" : "teamwork",
-       "PAGE_ACCESS_TOKEN" : "EAAdISHr7nwcBAJz0GU0SOLsk1wjEmj4lgNYZByU7DwuuwQ6vzi5u7YRZCff8geZAvKvw4QL6m7xFWKiNAW4kOyzwPYNS3MCev9MpiOhTHyDsFKN3kLUBRtbfRT1gR7xnrLbpi0Xl2s4mYf9RH8sEQTZAtyHOviqo58yXPX5YHLc1gnjF66Ed"
+       "PAGE_ACCESS_TOKEN" : "EAAdISHr7nwcBANhmJ0l1luH9wXJ8LhwRAhWEHuBIKfXEIzcV51ReP2R1qZATJwD1y0Q1zzOO3i79s05uxYiEjuuneleoSbsGjITjnBjRP2jWxZAXubYZBxa8vCXkFwlQEBxxY6h39KZBEzWj2neGr9Yaj1zg2NXEuS6bWxVLslGyzZAfRl4Ri"
+    },
+    "socket": {
+        "port" : 3000
     }
 }

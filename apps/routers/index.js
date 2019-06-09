@@ -3,7 +3,7 @@ module.exports = function (app) {
     app.use("/admin", require('./admin/index'));
     app.use('/login', require('./login.router'));
 
-    require('../controllers/webhook')(app);
+    app.use('/', require('./fanpage/index'));
 
 }
 

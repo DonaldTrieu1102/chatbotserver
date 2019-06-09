@@ -25,6 +25,8 @@
     "handlebars.moment": "^1.0.4",
     "http": "0.0.0",
     "moment": "^2.24.0",
+    "moment-timezone": "^0.5.25",
+    "mongodb": "^3.2.7",
     "monkii": "^2.0.0-2",
     "morgan": "^1.9.1",
     "mysql": "^2.17.1",
@@ -33,6 +35,7 @@
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
     "promise": "^8.0.3",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "socket.io": "^2.2.0"
   }
 }
