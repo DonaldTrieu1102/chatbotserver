@@ -76,8 +76,9 @@
             <div class="layer w-100">
               <div class="peers fxw-nw jc-sb ai-c pY-20 pX-30 bgc-white">
                 <div class="peers ai-c">
-                  <div class="peer d-n@md+"><a href="" title="" id="chat-sidebar-toggle"
-                      class="td-n c-grey-900 cH-blue-500 mR-30"><i class="ti-menu"></i></a></div>
+                  <div class="peer d-n@md+"><a class="sidebar-toggle" href="javascript:void(0);" title=""
+                      id="chat-sidebar-toggle" class="td-n c-grey-900 cH-blue-500 mR-30"><i class="ti-menu"></i></a>
+                  </div>
                   <div class="peer mR-20"><img src="{{user.profile_pic}}" alt="" class="w-3r h-3r bdrs-50p"></div>
                   <div class="peer">
                     <h6 class="lh-1 mB-0">{{user.last_name}}&nbsp;{{user.first_name}}</h6><i
@@ -130,16 +131,65 @@
             <div class="layer w-100">
               <div class="p-20 bdT bgc-white">
                 <div class="pos-r">
-                    <input id="text" onkeydown="javascript: if (event.keyCode == 13) sendMessage();" name="text" type="text" class="form-control bdrs-10em m-0" placeholder="Say something...">
-                    <button id="btnChat" onclick="sendMessage()" type="submit" class="btn btn-primary bdrs-50p w-2r p-0 h-2r pos-a r-1 t-1"><i
-                        class="fas fa-paper-plane"></i></button>
+                  <input id="text" onkeydown="javascript: if (event.keyCode == 13) sendMessage();" name="text"
+                    type="text" class="form-control bdrs-10em m-0" placeholder="Say something...">
+                  <button id="btnChat" onclick="sendMessage()" type="submit"
+                    class="btn btn-primary bdrs-50p w-2r p-0 h-2r pos-a r-1 t-1"><i
+                      class="fas fa-paper-plane"></i></button>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <div class="peer" style="width: 25%" id="chat-sidebar">
+           <div class="layers">
+            <div class="bdB layer w-100 text-center"><h2>Tạo hóa đơn</h2></div>
+           </div>
+          <div class="container-fluid">
+            <form id="formAddOrder" method="POST">
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label for="tenkhachhang">
+                    <b>Tên khách hàng</b>
+                  </label>
+                  <input type="text" class="form-control" name="TenKhachHang" id="tenkhachhang" autofocus required>
+                  <label for="sodienthoai">
+                    <b>Số điện thoại</b>
+                  </label>
+                  <input type="text" class="form-control" name="SDTKhachHang" id="sodienthoai" required>
+                  <label for="sodienthoai">
+                    <b>Địa chỉ</b>
+                  </label>
+                  <input type="text" class="form-control" name="DiaChiKhachHang" id="address" required>
+                  <div class="card mt-3">
+                    <div class="card-header"><b>Chọn sản phẩm</b></div>
+                    <div class="card-body">
+                      <div class="card-text" id="choose-products">
+                        {{#each lcProduct}}
+                        <div class="product col-md-12 row">
+                          <input onmouseup="UpdateTotalPrice()" onkeyup="UpdateTotalPrice()" value="0"
+                            onscroll="UpdateToTalPrice()" id="{{Gia}}-{{MaSanPham}}" min="0" type="number"
+                            class="form-control col-md-3 price" required>
+                          <span class="col-md-9 mt-1">{{MaSanPham}} - {{Ten}} -
+                            <span>{{Gia}}</span> </span>
+                        </div>
+                        {{/each}}
+                      </div>
+                      <h4 class="mt-5">Tổng giá: <b class="ml-1" id="tmp-total"> </b></h4>
+                    </div>
+                  </div>
+                  <input value="0" name="TongGia" id="total-price" style="display: none;">
+                </div>
+              </div>
+              <button type="submit" class="btn btn-success mr-2 ml-2 mb-3">
+                Create new order</button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+  </div>
   </div>
 </main>
 <script>
@@ -191,4 +241,61 @@
     $('#msg-content').append(element);
 
   }
+</script>
+<script>
+    $('.price').bind('keyup mouseup', UpdateTotalPrice());
+
+    var products = [];
+    function UpdateTotalPrice() {
+        var prices = $('.price');
+        var total = 0;
+        for (var i = 0; i < prices.length; i++) {
+            var amount = Number(prices[i].value);
+            var tmp = prices[i].getAttribute("id");
+            var spl = tmp.split('-');
+            var price = Number(spl[0]);
+            var code = spl[1];
+            total += price * amount;
+            console.log(total);
+            if (amount > 0 && !CheckExist(code)) {
+                var object = {};
+                object['amount'] = amount;
+                object['code'] = code;
+                products.push(object);
+                console.log(products);
+            }
+        }
+        $('#tmp-total').text(total);
+        $('#total-price').val(total);
+    }
+
+    function CheckExist(code) { 
+        for (var i = 0; i < products.length; i++) {
+            console.log(products[i]);
+            if (products[i].code === code) return true;
+        }
+        return false;
+    }
+
+    $('#formAddOrder').submit(function(e) {
+        e.preventDefault();
+        var form = $(this).serializeArray();
+
+        console.log(form);
+        $.ajax({
+            url: '/admin/orders/add',
+            method: 'POST',
+            dataType: 'json',
+            contenType: 'application/json',
+            data: { "form" : JSON.stringify(form), "products": JSON.stringify(products) },
+            success: (value => {
+                console.log('success');
+                window.location.replace('/');
+            }),
+            error: (error => {
+                console.log(error);
+                window.location.replace('/');
+            })
+        });
+    });
 </script>

@@ -12,7 +12,7 @@ const converModel = require('../../models/fanpage.model/conversation.model');
 const messageModel = require('../../models/fanpage.model/message.model');
 
 router.use(require('../../middlewares/fanpage.mdw'));
-
+router.use(require("../../middlewares/product.mdw"));
 // Accepts POST requests at /webhook endpoint
 router.post('/webhook', (req, res) => {
 
