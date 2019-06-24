@@ -53,7 +53,7 @@ router.post('/webhook', (req, res) => {
 router.get('/webhook', (req, res) => {
 
     /** UPDATE YOUR VERIFY TOKEN **/
-    const VERIFY_TOKEN = "teamwork";
+    const VERIFY_TOKEN = "donaldtrieu1102";
 
     // Parse params from the webhook verification request
     let mode = req.query['hub.mode'];

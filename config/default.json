@@ -14,8 +14,8 @@
     "secret_key":"secret_key",
     "facebook" : {
        "APP_SECRET" : "f7775684d7ef1c2c9c1d59208b2d5760",
-       "VERIFY_TOKEN" : "teamwork",
-       "PAGE_ACCESS_TOKEN" : "EAAdISHr7nwcBANhmJ0l1luH9wXJ8LhwRAhWEHuBIKfXEIzcV51ReP2R1qZATJwD1y0Q1zzOO3i79s05uxYiEjuuneleoSbsGjITjnBjRP2jWxZAXubYZBxa8vCXkFwlQEBxxY6h39KZBEzWj2neGr9Yaj1zg2NXEuS6bWxVLslGyzZAfRl4Ri"
+       "VERIFY_TOKEN" : "donaldtrieu1102",
+       "PAGE_ACCESS_TOKEN" : "EAAgNFI2d5ZCMBAErHeyRg8SD3ZBZCYXfkTPOxM0YxDEaPQYln0F80QAxguMaubqHi6bhDClbnTdaF9JvqVa94S00gQmmcqfZCJMfn0lUgr7JC3zVFlT28J1aZCufoajn68i2AOexiGuWkA0btdSdWuP6orZC32aZBQtHWuqrjBfBMp0NlJ3Ex9A"
     },
     "socket": {
         "port" : 3000
