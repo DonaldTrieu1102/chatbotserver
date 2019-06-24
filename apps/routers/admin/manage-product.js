@@ -80,13 +80,13 @@ router.get("/delete", (req, res) => {
 });
 router.get('/edit/:id', (req, res) => {
     var id = req.params.id;
-    var p = productModel.findOne(id);
-    var pd = productDetailModel.findOne(id);
+    var p = productModel.findById(id);
+    var pd = productDetailModel.findById(id);
     var c = cateDB.findAll();
     var s = storageDB.findAll();
     var arrayStatus = [{ value: 1, name: 'Còn hàng' }, { value: 2, name: 'Hết hàng' }];
-    console.log(id);
     Promise.all([p, pd, c, s, arrayStatus]).then(values => {
+        console.log(values);
         if (values[2] != null && values[0] != null) {
             for (const item of values[2]) {
                 if (item.MaDanhMuc == values[0].MaDanhMuc) {

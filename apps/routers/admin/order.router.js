@@ -86,6 +86,7 @@ router.get('/detail', (req, res) => {
     Promise.all([orderModel.findOne(id),
     orderDetailModel.findAllByOrderId(id)])
     .then(values => {
+        console.log(values);
         res.render('admin/VwOrderDetail', {layout: '_layouts/main-admin', entity: values[0][0], products: values[1]});
     })
 })

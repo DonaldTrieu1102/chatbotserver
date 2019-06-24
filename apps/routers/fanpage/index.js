@@ -124,11 +124,14 @@ function callSendAPI(senderId, message) {
     });
 }
 
-router.post('/message/:id', (req, res) => {
+router.post('/user/message/:id', (req, res) => {
     var sender_id = req.params.id;
     console.log(sender_id);
     var msg = req.body.text;
+    console.log(msg);
     socket.saveMessageMine(msg, sender_id);
+    socket.sendMessageToClient(msg, sender_id);
+
 })
 
 router.get('/user/:id', (req, res) => {

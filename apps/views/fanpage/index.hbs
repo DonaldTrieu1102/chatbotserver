@@ -203,11 +203,10 @@
 
     var message = {};
     message.text = msg;
-
     var active = $('.user-active');
     var user_id = active.attr('id');
     $.ajax({
-      url: 'message/' + user_id,
+      url: '../message/' + user_id,
       method: 'POST',
       contentType: 'application/json',
       dataType: 'json',
