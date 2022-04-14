@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "async": "^2.5.0",
+    "async": "^3.2.2",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "botbuilder-adapter-facebook": "^1.0.3",
